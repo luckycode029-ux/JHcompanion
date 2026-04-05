@@ -1,0 +1,92 @@
+:root {
+  --color-bg: #0f0f13;
+  --color-surface: #17171f;
+  --color-surface-2: #1e1e2a;
+  --color-surface-3: #26263a;
+  --color-border: #2e2e42;
+  --color-border-subtle: #232336;
+
+  --color-primary: #6366f1;
+  --color-primary-hover: #818cf8;
+  --color-primary-dim: rgba(99, 102, 241, 0.15);
+
+  --color-secondary: #8b5cf6;
+  --color-secondary-dim: rgba(139, 92, 246, 0.15);
+
+  --color-accent: #06b6d4;
+  --color-accent-dim: rgba(6, 182, 212, 0.15);
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --color-text: #f0f0f8;
+  --color-text-muted: #8888aa;
+  --color-text-subtle: #55556a;
+
+  --color-cse: #6366f1;
+  --color-cse-dim: rgba(99, 102, 241, 0.15);
+  --color-cse-ai: #8b5cf6;
+  --color-cse-ai-dim: rgba(139, 92, 246, 0.15);
+  --color-ece: #06b6d4;
+  --color-ece-dim: rgba(6, 182, 212, 0.15);
+
+  --family-display: "Space Grotesk", sans-serif;
+  --family-body: "DM Sans", sans-serif;
+  --family-mono: "JetBrains Mono", monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+
+  --sidebar-width: 240px;
+  --bottom-nav-height: 64px;
+  --header-height: 60px;
+}
+
+.light-theme {
+  --color-bg: #f4f4f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #f0f0f6;
+  --color-surface-3: #e8e8f0;
+  --color-border: #dddde8;
+  --color-border-subtle: #eaeaf2;
+  --color-primary-dim: rgba(99, 102, 241, 0.1);
+  --color-secondary-dim: rgba(139, 92, 246, 0.1);
+  --color-accent-dim: rgba(6, 182, 212, 0.1);
+  --color-cse-dim: rgba(99, 102, 241, 0.1);
+  --color-cse-ai-dim: rgba(139, 92, 246, 0.1);
+  --color-ece-dim: rgba(6, 182, 212, 0.1);
+  --color-text: #1a1a2e;
+  --color-text-muted: #5555778;
+  --color-text-subtle: #9999b8;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
+}

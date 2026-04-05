@@ -1,0 +1,111 @@
+.sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  flex-direction: column;
+  padding: var(--space-6) var(--space-4);
+  z-index: 100;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    display: flex;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+  margin-bottom: var(--space-2);
+}
+
+.brandIcon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-family: var(--family-display);
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.brandSub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+}
+
+.navItem:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+.navItemActive {
+  background: var(--color-primary-dim);
+  color: var(--color-primary);
+}
+
+.navItemActive:hover {
+  background: var(--color-primary-dim);
+  color: var(--color-primary-hover);
+}
+
+.themeBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  width: 100%;
+  transition: background 0.15s, color 0.15s;
+}
+
+.themeBtn:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+.watermark {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  opacity: 0.45;
+  text-align: center;
+  padding-top: var(--space-2);
+  letter-spacing: 0.04em;
+  font-family: var(--family-body);
+}

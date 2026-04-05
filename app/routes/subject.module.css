@@ -1,0 +1,141 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quickActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+  flex-wrap: wrap;
+}
+
+.syllabusBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary-dim);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.syllabusBtn:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.bookmarkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.bookmarkBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.bookmarkActive {
+  background: var(--color-primary-dim);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.content {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.section {}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.sectionIcon {
+  color: var(--color-primary);
+}
+
+.sectionTitle {
+  font-family: var(--family-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.unitsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pyqGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .pyqGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pyqCard {
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pyqLabel {
+  font-family: var(--family-display);
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+
+.pyqDesc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+.error {
+  padding: var(--space-10) var(--space-6);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.back {
+  display: inline-block;
+  margin-top: var(--space-4);
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+}

@@ -1,0 +1,17 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: var(--bottom-nav-height);
+}
+
+@media (min-width: 768px) {
+  .main {
+    margin-left: var(--sidebar-width);
+    padding-bottom: 0;
+  }
+}

@@ -1,0 +1,407 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.drawer {
+  width: 100%;
+  max-width: 760px;
+  max-height: 92vh;
+  background: var(--color-bg);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.25s ease;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (min-width: 640px) {
+  .overlay {
+    align-items: center;
+  }
+  .drawer {
+    border-radius: var(--radius-xl);
+    max-height: 88vh;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.headerTitle {
+  font-family: var(--family-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.headerSub {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--family-mono);
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  background: var(--color-surface-3);
+  color: var(--color-text);
+}
+
+.body {
+  overflow-y: auto;
+  flex: 1;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Meta strip */
+.metaStrip {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.metaChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-primary-dim);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-size: var(--text-xs);
+  font-family: var(--family-mono);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Section */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--family-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.sectionIcon {
+  color: var(--color-primary);
+}
+
+/* Course Outcomes */
+.coList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.coItem {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.coId {
+  font-family: var(--family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-dim);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.coDesc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* CO-PO Table */
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-xs);
+  font-family: var(--family-mono);
+  min-width: 560px;
+}
+
+.table th {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+.table th:first-child {
+  text-align: left;
+  border-right: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+  border-right: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+}
+
+.table td:first-child {
+  text-align: left;
+  font-weight: 700;
+  color: var(--color-primary);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.tableVal {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.tableDash {
+  color: var(--color-text-subtle);
+}
+
+/* Syllabus units */
+.unitList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.unitBlock {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.unitBlockHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.unitBlockTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.unitBadge {
+  font-family: var(--family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-dim);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.unitName {
+  font-family: var(--family-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.unitHours {
+  font-family: var(--family-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.unitTopics {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+}
+
+.topicsTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.topicTag {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-subtle);
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+}
+
+/* Reference books */
+.refList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  counter-reset: ref;
+}
+
+.refItem {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.refNum {
+  font-family: var(--family-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-dim);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Assessment */
+.assessGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .assessGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.assessCard {
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.assessMarks {
+  font-family: var(--family-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.assessLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Simple list */
+.simpleList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.simpleItem {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
