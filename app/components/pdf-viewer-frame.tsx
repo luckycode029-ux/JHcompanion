@@ -12,7 +12,7 @@ export default function PdfViewerFrame({ src, title, onLoad, onError }: PdfViewe
       title={title}
       loading="lazy"
       referrerPolicy="strict-origin-when-cross-origin"
-      sandbox="allow-same-origin allow-scripts allow-forms allow-downloads allow-presentation"
+      sandbox="allow-same-origin allow-scripts allow-forms allow-downloads allow-presentation allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
       allow="fullscreen"
       onLoad={onLoad}
       onError={onError}

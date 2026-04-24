@@ -59,15 +59,6 @@ export function PDFViewer({ title, driveUrl }: PDFViewerProps) {
   }, [bookmarkId]);
 
   useEffect(() => {
-    if (!isInView || !sanitizedUrl || !isLoading || hasError) return;
-    const timer = window.setTimeout(() => {
-      setIsLoading(false);
-      setHasError(true);
-    }, 15000);
-    return () => window.clearTimeout(timer);
-  }, [hasError, isInView, isLoading, sanitizedUrl, iframeKey]);
-
-  useEffect(() => {
     if (!showToast) return;
     const timer = window.setTimeout(() => setShowToast(false), 2200);
     return () => window.clearTimeout(timer);
@@ -168,7 +159,7 @@ export function PDFViewer({ title, driveUrl }: PDFViewerProps) {
                 </div>
               }
             >
-              <div className={isLoading ? styles.hidden : ""}>
+              <div className={styles.frameHolder}>
                 <LazyPdfViewerFrame
                   key={iframeKey}
                   src={previewUrl}
@@ -179,6 +170,14 @@ export function PDFViewer({ title, driveUrl }: PDFViewerProps) {
                     setHasError(true);
                   }}
                 />
+                {isLoading && (
+                  <div className={styles.loadingOverlay}>
+                    <div className={styles.loadingState}>
+                      <Skeleton className={styles.headerSkeleton} />
+                      <Skeleton className={styles.viewerSkeleton} />
+                    </div>
+                  </div>
+                )}
               </div>
             </Suspense>
           </>

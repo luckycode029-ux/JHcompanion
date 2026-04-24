@@ -71,6 +71,18 @@
   min-height: 500px;
 }
 
+.frameHolder {
+  position: relative;
+  min-height: 500px;
+}
+
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-2);
+  pointer-events: none;
+}
+
 .headerSkeleton {
   width: 48%;
   height: 22px;
@@ -81,10 +93,6 @@
   width: 100%;
   min-height: 500px;
   border-radius: var(--radius-md);
-}
-
-.hidden {
-  display: none;
 }
 
 .placeholder,
