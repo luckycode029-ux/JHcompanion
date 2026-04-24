@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router";
-import { getSubject, getBranch } from "~/utils/data";
-import { UnitCard } from "~/components/unit-card/unit-card";
-import { ResourceButton } from "~/components/resource-button/resource-button";
+import { Link, useParams } from "react-router";
+import { Bookmark, BookmarkCheck, BookOpen, FileQuestion, FileText, ScrollText } from "lucide-react";
+import { PDFViewer } from "~/components/PDFViewer";
 import { PageHeader } from "~/components/page-header/page-header";
+import { ResourceButton } from "~/components/resource-button/resource-button";
 import { SyllabusModal } from "~/components/syllabus-modal/syllabus-modal";
+import { UnitCard } from "~/components/unit-card/unit-card";
 import { useBookmarks } from "~/hooks/use-bookmarks";
-import { Bookmark, BookmarkCheck, BookOpen, FileQuestion, ScrollText } from "lucide-react";
+import { getBranch, getSubject } from "~/utils/data";
 import styles from "./subject.module.css";
 
 export function meta({ params }: { params: Record<string, string> }) {
@@ -24,7 +25,9 @@ export default function SubjectPage() {
     return (
       <div className={styles.error}>
         <p>Subject not found.</p>
-        <Link to="/" className={styles.back}>Go Home</Link>
+        <Link to="/" className={styles.back}>
+          Go Home
+        </Link>
       </div>
     );
   }
@@ -32,21 +35,26 @@ export default function SubjectPage() {
   const branch = getBranch(subject.branch);
   const bookmarked = isBookmarked(subject.id);
 
+  const syllabusPdf = subject.syllabusPdf ?? subject.syllabus;
+  const sessionalPyqs = subject.sessionalPyqs ?? subject.pyqs.sessional;
+  const semesterPyqs = subject.semesterPyqs ?? subject.pyqs.semester;
+  const subjectUnitNotes = subject.unitNotes ?? "";
+  const unitNotesPdfs = subject.units
+    .map((unit) => ({ label: `Unit ${unit.number} Notes`, driveUrl: unit.unitNotes ?? unit.notes }))
+    .filter((item) => Boolean(item.driveUrl?.trim()));
+
   return (
     <div className={styles.page}>
       <PageHeader
         title={subject.name}
-        subtitle={`${subject.code} • Semester ${subject.semester} • ${branch?.name ?? ""}`}
+        subtitle={`${subject.code} - Semester ${subject.semester} - ${branch?.name ?? ""}`}
         backTo={`/branch/${subject.branch}/year/${subject.year}`}
         backLabel={`Year ${subject.year}`}
         accentColor={branch?.color}
       />
 
       <div className={styles.quickActions}>
-        <button
-          className={styles.syllabusBtn}
-          onClick={() => setSyllabusOpen(true)}
-        >
+        <button className={styles.syllabusBtn} onClick={() => setSyllabusOpen(true)}>
           <ScrollText size={16} />
           <span>View Syllabus</span>
         </button>
@@ -61,11 +69,25 @@ export default function SubjectPage() {
           <span>{bookmarked ? "Bookmarked" : "Bookmark"}</span>
         </button>
       </div>
-      {syllabusOpen && (
-        <SyllabusModal subject={subject} onClose={() => setSyllabusOpen(false)} />
-      )}
+      {syllabusOpen && <SyllabusModal subject={subject} onClose={() => setSyllabusOpen(false)} />}
 
       <div className={styles.content}>
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <FileText size={18} className={styles.sectionIcon} />
+            <h2 className={styles.sectionTitle}>PDF Library</h2>
+          </div>
+          <div className={styles.pdfStack}>
+            <PDFViewer title={`${subject.name} Syllabus`} driveUrl={syllabusPdf} />
+            <PDFViewer title={`${subject.name} Sessional PYQs`} driveUrl={sessionalPyqs} />
+            <PDFViewer title={`${subject.name} Semester PYQs`} driveUrl={semesterPyqs} />
+            {subjectUnitNotes && <PDFViewer title={`${subject.name} Unit Notes`} driveUrl={subjectUnitNotes} />}
+            {unitNotesPdfs.map((item) => (
+              <PDFViewer key={`${subject.id}-${item.label}`} title={item.label} driveUrl={item.driveUrl} />
+            ))}
+          </div>
+        </section>
+
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <BookOpen size={18} className={styles.sectionIcon} />

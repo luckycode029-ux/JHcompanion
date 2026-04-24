@@ -67,6 +67,12 @@
 
 .section {}
 
+.pdfStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 .sectionHeader {
   display: flex;
   align-items: center;

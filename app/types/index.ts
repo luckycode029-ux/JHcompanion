@@ -13,6 +13,7 @@ export interface Unit {
   hours?: number;
   playlist: string;
   notes: string;
+  unitNotes?: string;
   pyqs: string;
 }
 
@@ -49,6 +50,10 @@ export interface Subject {
   year: number;
   semester: number;
   syllabus: string;
+  syllabusPdf?: string;
+  sessionalPyqs?: string;
+  semesterPyqs?: string;
+  unitNotes?: string;
   syllabusData?: SyllabusData;
   units: Unit[];
   pyqs: {
