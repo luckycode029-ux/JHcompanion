@@ -32,6 +32,11 @@
   color: #fff;
 }
 
+.syllabusBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .bookmarkBtn {
   display: inline-flex;
   align-items: center;
@@ -66,12 +71,6 @@
 }
 
 .section {}
-
-.pdfStack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
 
 .sectionHeader {
   display: flex;

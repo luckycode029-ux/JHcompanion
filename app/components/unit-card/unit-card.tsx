@@ -6,10 +6,15 @@ import { useState } from "react";
 
 interface UnitCardProps {
   unit: Unit;
+  onOpenPdf?: (title: string, driveUrl: string) => void;
 }
 
-export function UnitCard({ unit }: UnitCardProps) {
+export function UnitCard({ unit, onOpenPdf }: UnitCardProps) {
   const [open, setOpen] = useState(false);
+  const openUnitPdf = (title: string, driveUrl: string) => {
+    if (!driveUrl.trim()) return;
+    onOpenPdf?.(title, driveUrl);
+  };
 
   return (
     <div className={styles.card}>
@@ -21,8 +26,26 @@ export function UnitCard({ unit }: UnitCardProps) {
       {open && (
         <div className={styles.resources}>
           <ResourceButton href={unit.playlist} icon="youtube" label="Watch Playlist" variant="youtube" />
-          <ResourceButton href={unit.notes} icon="notes" label="Handwritten Notes" variant="notes" />
-          <ResourceButton href={unit.pyqs} icon="pyqs" label="Important PYQs" variant="pyqs" />
+          <ResourceButton
+            label="Handwritten Notes"
+            icon="notes"
+            variant="notes"
+            href={unit.unitNotes ?? unit.notes}
+            onClick={
+              (unit.unitNotes ?? unit.notes).trim()
+                ? () => openUnitPdf(`Unit ${unit.number} Handwritten Notes`, unit.unitNotes ?? unit.notes)
+                : undefined
+            }
+            disabled={!(unit.unitNotes ?? unit.notes).trim()}
+          />
+          <ResourceButton
+            label="Important PYQs"
+            icon="pyqs"
+            variant="pyqs"
+            href={unit.pyqs}
+            onClick={unit.pyqs.trim() ? () => openUnitPdf(`Unit ${unit.number} PYQs`, unit.pyqs) : undefined}
+            disabled={!unit.pyqs.trim()}
+          />
         </div>
       )}
     </div>
