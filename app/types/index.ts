@@ -13,6 +13,7 @@ export interface Unit {
   hours?: number;
   playlist: string;
   notes: string;
+  notesDriveUrl?: string;
   unitNotes?: string;
   pyqs: string;
 }

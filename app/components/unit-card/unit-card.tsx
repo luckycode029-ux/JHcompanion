@@ -11,6 +11,8 @@ interface UnitCardProps {
 
 export function UnitCard({ unit, onOpenPdf }: UnitCardProps) {
   const [open, setOpen] = useState(false);
+  const noteUrl = unit.notesDriveUrl ?? unit.unitNotes ?? unit.notes;
+
   const openUnitPdf = (title: string, driveUrl: string) => {
     if (!driveUrl.trim()) return;
     onOpenPdf?.(title, driveUrl);
@@ -30,13 +32,13 @@ export function UnitCard({ unit, onOpenPdf }: UnitCardProps) {
             label="Handwritten Notes"
             icon="notes"
             variant="notes"
-            href={unit.unitNotes ?? unit.notes}
+            href={noteUrl}
             onClick={
-              (unit.unitNotes ?? unit.notes).trim()
-                ? () => openUnitPdf(`Unit ${unit.number} Handwritten Notes`, unit.unitNotes ?? unit.notes)
+              noteUrl.trim()
+                ? () => openUnitPdf(`Unit ${unit.number} Handwritten Notes`, noteUrl)
                 : undefined
             }
-            disabled={!(unit.unitNotes ?? unit.notes).trim()}
+            disabled={!noteUrl.trim()}
           />
           <ResourceButton
             label="Important PYQs"
