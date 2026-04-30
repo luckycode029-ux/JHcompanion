@@ -479,9 +479,9 @@
                                            "number":  1,
                                            "title":  "Unit 1",
                                            "topics":  [
-                                                          "RGPV One Shot Probability | Introduction to Probability \u0026 Statistics | IPS | Full Syllabus | PART-1"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/B1t-dho0HSs?si=IfRCQHm8HSPHPF4x",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -489,9 +489,9 @@
                                            "number":  2,
                                            "title":  "Unit 2",
                                            "topics":  [
-                                                          "RGPV One Shot Probability | Introduction to Probability \u0026 Statistics | IPS | Full Syllabus | PART-1"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/B1t-dho0HSs?si=IfRCQHm8HSPHPF4x",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -499,9 +499,9 @@
                                            "number":  3,
                                            "title":  "Unit 3",
                                            "topics":  [
-                                                          "Bivariate Continuous Random Variable, Joint PDF, Marginal PDF x and y | By GP Sir"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/i3_zoP6BPLM?si=6QsFDBJgUUIZJz4E",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -509,9 +509,9 @@
                                            "number":  4,
                                            "title":  "Unit 4",
                                            "topics":  [
-                                                          "Statistics One Shot RGPV 2026 | Introduction to Probability \u0026 Statistics Complete Revision PART-2"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/CF5EINyvPFw?si=qEmD1325j0VJWnrO",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -519,9 +519,9 @@
                                            "number":  5,
                                            "title":  "Unit 5",
                                            "topics":  [
-                                                          "Regression + Curve Fitting + Hypothesis Testing | RGPV IPS One Shot 2026 PART-3 (Statistics)"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/MCyMf4C2T0M?si=xofgPoYaqgM7_cP5",
                                            "notes":  "",
                                            "pyqs":  ""
                                        }
@@ -1445,20 +1445,9 @@
                                            "number":  1,
                                            "title":  "Basic Probability",
                                            "topics":  [
-                                                          "Probability spaces",
-                                                          "Conditional probability",
-                                                          "Independence",
-                                                          "Discrete random variables",
-                                                          "Independent random variables",
-                                                          "Multinomial distribution",
-                                                          "Poisson approximation to binomial distribution",
-                                                          "Infinite sequences of Bernoulli trials",
-                                                          "Sum of independent random variables",
-                                                          "Expectation",
-                                                          "Variance of a sum",
-                                                          "Chebyshev\u0027s inequality"
+
                                                       ],
-                                           "playlist":  "https://youtube.com/playlist?list=PLQD3kstroiFlGFiCQQdPCho85tvH9zJyr",
+                                           "playlist":  "https://youtu.be/B1t-dho0HSs?si=IfRCQHm8HSPHPF4x",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -1466,14 +1455,9 @@
                                            "number":  2,
                                            "title":  "Continuous Probability Distributions",
                                            "topics":  [
-                                                          "Continuous random variables",
-                                                          "Properties of continuous random variables",
-                                                          "Distribution functions and density functions",
-                                                          "Normal distribution",
-                                                          "Exponential distribution",
-                                                          "Gamma distribution"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/B1t-dho0HSs?si=IfRCQHm8HSPHPF4x",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -1481,14 +1465,9 @@
                                            "number":  3,
                                            "title":  "Bivariate Distributions",
                                            "topics":  [
-                                                          "Bivariate distributions",
-                                                          "Properties of bivariate distributions",
-                                                          "Distribution of sums",
-                                                          "Distribution of quotients",
-                                                          "Conditional densities",
-                                                          "Bayes\u0027 rule"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/i3_zoP6BPLM?si=6QsFDBJgUUIZJz4E",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -1496,19 +1475,9 @@
                                            "number":  4,
                                            "title":  "Basic Statistics",
                                            "topics":  [
-                                                          "Measures of central tendency",
-                                                          "Moments",
-                                                          "Skewness",
-                                                          "Kurtosis",
-                                                          "Binomial distribution",
-                                                          "Poisson distribution",
-                                                          "Normal distribution",
-                                                          "Evaluation of statistical parameters",
-                                                          "Correlation",
-                                                          "Regression",
-                                                          "Rank correlation"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/CF5EINyvPFw?si=qEmD1325j0VJWnrO",
                                            "notes":  "",
                                            "pyqs":  ""
                                        },
@@ -1516,22 +1485,9 @@
                                            "number":  5,
                                            "title":  "Applied Statistics and Hypothesis Testing",
                                            "topics":  [
-                                                          "Curve fitting using method of least squares",
-                                                          "Fitting of straight lines",
-                                                          "Fitting of second degree parabola",
-                                                          "Fitting of general curves",
-                                                          "Test of significance",
-                                                          "Large sample test for single proportion",
-                                                          "Difference of proportions test",
-                                                          "Test for single mean",
-                                                          "Difference of means test",
-                                                          "Difference of standard deviations test",
-                                                          "Test for correlation coefficients",
-                                                          "Test for ratio of variances",
-                                                          "Chi-square test for goodness of fit",
-                                                          "Chi-square test for independence of attributes"
+
                                                       ],
-                                           "playlist":  "",
+                                           "playlist":  "https://youtu.be/MCyMf4C2T0M?si=xofgPoYaqgM7_cP5",
                                            "notes":  "",
                                            "pyqs":  ""
                                        }
