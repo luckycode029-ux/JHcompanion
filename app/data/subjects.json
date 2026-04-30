@@ -1,556 +1,2014 @@
-{
-  "branches": [
-    { "id": "cse", "name": "CSE", "fullName": "Computer Science & Engineering", "icon": "cpu", "color": "#6366f1" },
-    { "id": "cse-ai", "name": "CSE-AI", "fullName": "CSE with Artificial Intelligence", "icon": "brain", "color": "#8b5cf6" },
-    { "id": "ece", "name": "ECE", "fullName": "Electronics & Communication Engg.", "icon": "radio", "color": "#06b6d4" }
-  ],
-  "subjects": [
-    {
-      "id": "cse-mathematics-1", "name": "Mathematics-I", "code": "102",
-      "branch": "cse", "year": 1, "semester": 1,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-programming-for-problem-solving", "name": "Programming for Problem Solving", "code": "202",
-      "branch": "cse", "year": 1, "semester": 1,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "202",
-        "courseTitle": "Programming for Problem Solving"
-      },
-      "units": [
-        { "number": 1, "title": "Introduction to Programming", "topics": ["Computer components", "Memory", "Disk", "Processor", "Evolution of programming languages", "Machine language", "Assembly language", "High level language", "System software", "Application software", "Compiler", "Linker", "Loader", "Basic algorithm development", "Flowcharts", "Pseudo code", "Executable code", "Syntax errors", "Logical errors", "Number systems", "Binary", "Octal", "Decimal", "Hexadecimal"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Data Types, Operators, Variables, Conditional Statements", "topics": ["Data types", "Expressions", "Precedence rules", "Arithmetic operators", "Relational operators", "Logical operators", "Bitwise operators", "Increment operators", "Decrement operators", "Local variables", "Global variables", "Storage classes", "If statements", "Nested if else", "Else if ladder", "Switch case"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Loops, Arrays, Strings, User Defined Data Types", "topics": ["While loop", "Do while loop", "For loop", "Nested loops", "Break", "Continue", "Arrays", "Array declarations", "Multidimensional arrays", "Character arrays", "Strings", "Searching (linear search)", "Searching (binary search)", "Sorting (bubble sort)", "Sorting (selection sort)"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Functions, Methods, Pointers", "topics": ["Functions", "Modular programming", "Function declaration", "Function invocation", "Parameter passing", "Call by value", "Call by reference", "Passing arrays to functions", "Recursion", "Pointers", "Arrays with pointers", "Pointers with arrays", "Pointers with functions"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Structures, Unions, Memory Management, File Handling", "topics": ["Structures", "Union", "Array of structures", "Self referential structures", "Dynamic memory management", "Malloc", "Calloc", "Free", "Command line arguments", "Preprocessor directives", "File operations", "File reading", "File writing", "Appending files"], "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-chemistry", "name": "Chemistry", "code": "302",
-      "branch": "cse", "year": 1, "semester": 1,
-      "syllabus": "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view?usp=drive_link",
-      "syllabusPdf": "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view?usp=drive_link",
-      "syllabusData": {
-        "courseCode": "302",
-        "courseTitle": "Chemistry"
-      },
-      "units": [
-        { "number": 1, "title": "Atomic and Molecular Structure", "topics": ["Schrodinger equation", "Hydrogen atom wave functions", "Plots of wave functions", "Shapes of atomic orbitals", "Molecular orbitals of diatomic molecules", "Energy level diagrams", "Molecular orbitals of butadiene and benzene", "Aromaticity", "Crystal field theory", "Energy level diagrams for transition metal ions", "Band structure of solids", "Density of states"], "playlist": "", "notes": "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view?usp=drive_link", "unitNotes": "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view?usp=drive_link", "pyqs": "" },
-        { "number": 2, "title": "Spectroscopic Techniques and Applications", "topics": ["Principles of spectroscopy", "Selection rules", "Electronic spectroscopy", "Fluorescence and applications", "Vibrational spectroscopy", "Rotational spectroscopy", "Applications", "Nuclear magnetic resonance (NMR)", "Magnetic resonance imaging (MRI)", "Surface characterization techniques", "Diffraction and scattering"], "playlist": "", "notes": "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view?usp=drive_link", "unitNotes": "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view?usp=drive_link", "pyqs": "" },
-        { "number": 3, "title": "Use of Free Energy in Chemical Equilibria", "topics": ["Thermodynamic functions", "Energy", "Entropy", "Free energy", "Estimations of entropy and free energy", "Free energy and cell potentials", "Nernst equation", "Acids", "Oxidation reduction", "Solubility equilibria", "Corrosion", "Ellingham diagrams"], "playlist": "", "notes": "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view?usp=drive_link", "unitNotes": "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view?usp=drive_link", "pyqs": "" },
-        { "number": 4, "title": "Periodic Properties", "topics": ["Effective nuclear charge", "Penetration of orbitals", "Variation of s, p, d orbital energies", "Electronic configuration", "Atomic size", "Ionic size", "Ionization energy", "Electron affinity", "Electronegativity", "Polarizability", "Oxidation states", "Coordination numbers", "Hard and soft acids"], "playlist": "", "notes": "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view?usp=drive_link", "unitNotes": "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view?usp=drive_link", "pyqs": "" },
-        { "number": 5, "title": "Stereochemistry and Organic Reactions", "topics": ["Representations of 3D structures", "Structural isomers", "Stereoisomers", "Configurations and symmetry", "Chirality", "Enantiomers", "Diastereomers", "Optical activity", "Conformational analysis", "Isomerism in transition metal compounds", "Substitution reactions", "Addition reactions", "Elimination reactions", "Oxidation reactions", "Reduction reactions", "Cyclization reactions", "Rearrangement reactions"], "playlist": "", "notes": "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view?usp=drive_link", "unitNotes": "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view?usp=drive_link", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-universal-human-value", "name": "Universal Human Value", "code": "",
-      "branch": "cse", "year": 1, "semester": 1,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "UHV",
-        "courseTitle": "Universal Human Values"
-      },
-      "units": [
-        { "number": 1, "title": "Introduction to Value Education", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Harmony in Human Being", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Harmony in Family and Society", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Harmony with Nature", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Professional Ethics and Holistic Understanding", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-workshop", "name": "Workshop", "code": "",
-      "branch": "cse", "year": 1, "semester": 1,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-mathematics-2", "name": "Mathematics-II", "code": "",
-      "branch": "cse", "year": 1, "semester": 2,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-graphic-design", "name": "Graphic Design", "code": "",
-      "branch": "cse", "year": 1, "semester": 2,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-applied-physics", "name": "Applied Physics", "code": "",
-      "branch": "cse", "year": 1, "semester": 2,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-basic-electrical-engineering", "name": "Basic Electrical Engineering", "code": "",
-      "branch": "cse", "year": 1, "semester": 2,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-english-communication", "name": "English Communication", "code": "",
-      "branch": "cse", "year": 1, "semester": 2,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-evs", "name": "EVS", "code": "",
-      "branch": "cse", "year": 1, "semester": 2,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "BTCSEAI EVS",
-        "courseTitle": "Environmental Science",
-        "lectureHours": "2L:0T:0P",
-        "credits": 2,
-        "courseOutcomes": [
-          { "id": "CO1", "description": "Understand the multidisciplinary nature and fundamental concepts of the environment." },
-          { "id": "CO2", "description": "Identify major types of natural resources, biodiversity, and the importance of their conservation." },
-          { "id": "CO3", "description": "Analyze various forms of environmental pollution and explore suitable control measures." },
-          { "id": "CO4", "description": "Understand and apply concepts related to sustainable development, EIA, and environmental legislation." },
-          { "id": "CO5", "description": "Demonstrate awareness of global environmental issues, ethics, and the role of technology in monitoring." }
-        ],
-        "coPoMapping": [
-          { "co": "CO1", "po": { "1": 3, "2": 2, "3": null, "4": null, "5": 1, "6": 2, "7": 3, "8": 2, "9": 1, "10": 1, "11": null, "12": 2 }, "pso": { "O1": 2, "O2": null, "O3": null } },
-          { "co": "CO2", "po": { "1": 2, "2": 2, "3": 1, "4": null, "5": 1, "6": 2, "7": 3, "8": 2, "9": 1, "10": null, "11": null, "12": 2 }, "pso": { "O1": 2, "O2": 1, "O3": null } },
-          { "co": "CO3", "po": { "1": 3, "2": 3, "3": 2, "4": 1, "5": 2, "6": 3, "7": 3, "8": 2, "9": 1, "10": 1, "11": null, "12": 3 }, "pso": { "O1": 2, "O2": 2, "O3": null } },
-          { "co": "CO4", "po": { "1": 2, "2": 3, "3": 2, "4": 2, "5": 2, "6": 3, "7": 2, "8": 3, "9": 2, "10": 1, "11": null, "12": 3 }, "pso": { "O1": 2, "O2": 1, "O3": null } },
-          { "co": "CO5", "po": { "1": 2, "2": 2, "3": 1, "4": 1, "5": 1, "6": 3, "7": 3, "8": 3, "9": 2, "10": 1, "11": null, "12": 3 }, "pso": { "O1": 2, "O2": 1, "O3": null } }
-        ],
-        "referenceBooks": [
-          "Erach Bharucha, Textbook of Environmental Studies for Undergraduate Courses, Universities Press.",
-          "Benny Joseph, Environmental Studies, Tata McGraw Hill.",
-          "Subrat Roy, Environmental Science (AICTE Prescribed Textbook), Khanna Publishers.",
-          "Anubha Kaushik and C.P. Kaushik, Environmental Studies, New Age International."
-        ],
-        "teachingStrategies": [
-          "Interactive lectures and real-world case studies.",
-          "Field surveys and eco-audits.",
-          "Group discussions and debates on environmental ethics.",
-          "Audio-visual presentations and document-based assessments."
-        ],
-        "assessmentMethods": [
-          "Internal Assessment: 40 Marks (Assignments, Case Studies, Class Tests, Attendance).",
-          "Semester Exam: 60 Marks (Theory only).",
-          "Total: 100 Marks."
-        ],
-        "internalMarks": 40,
-        "semesterMarks": 60
-      },
-      "units": [
-        {
-          "number": 1,
-          "title": "Multidisciplinary Nature of Environmental Studies & Natural Resources",
-          "topics": ["Definition, scope and importance of environmental studies", "Components of environment", "Renewable and non-renewable resources", "Forest, water, mineral, food, energy, land resources", "Associated problems and conservation practices"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 2,
-          "title": "Ecosystems and Biodiversity",
-          "topics": ["Ecosystem structure, function and types", "Food chains, food webs and ecological pyramids", "Biodiversity definition, types and value", "India as a mega-diversity nation", "Threats to biodiversity and conservation strategies"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 3,
-          "title": "Environmental Pollution",
-          "topics": ["Air, water, soil and noise pollution", "Causes, effects and control measures", "Solid waste management", "Role of individuals in pollution control", "Public health aspects and disaster management basics"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 4,
-          "title": "Social Issues, Sustainable Development & Environmental Legislation",
-          "topics": ["Sustainable development goals", "Climate change, global warming and ozone depletion", "Related treaties", "Environmental Protection Act, Water Act, Air Act", "Wildlife and Forest Conservation Acts", "Role of NGOs and public awareness campaigns"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 5,
-          "title": "Environmental Impact Assessment and Role of IT",
-          "topics": ["EIA process: screening, scoping, data collection and evaluation", "Environmental Management Plan", "Environmental ethics and green campus initiatives", "Use of information technology and GIS in environmental monitoring"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-applied-physics", "name": "Applied Physics", "code": "101",
-      "branch": "cse-ai", "year": 1, "semester": 1,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-mathematics-1", "name": "Mathematics-I", "code": "102",
-      "branch": "cse-ai", "year": 1, "semester": 1,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-bee", "name": "Basic Electrical Engineering", "code": "103",
-      "branch": "cse-ai", "year": 1, "semester": 1,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-english-comm", "name": "English Communication", "code": "104",
-      "branch": "cse-ai", "year": 1, "semester": 1,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-graphic-design", "name": "Graphic Design", "code": "105",
-      "branch": "cse-ai", "year": 1, "semester": 1,
-      "syllabus": "",
-      "units": [
-        { "number": 1, "title": "Unit 1", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Unit 2", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Unit 3", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Unit 4", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Unit 5", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-programming-for-problem-solving", "name": "Programming for Problem Solving", "code": "203",
-      "branch": "cse-ai", "year": 1, "semester": 2,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "BTCSEAI 203",
-        "courseTitle": "Programming for Problem Solving"
-      },
-      "units": [
-        { "number": 1, "title": "Introduction to Programming", "topics": ["Computer components", "Memory", "Disk", "Processor", "Evolution of programming languages", "Machine language", "Assembly language", "High level language", "System software", "Application software", "Compiler", "Linker", "Loader", "Basic algorithm development", "Flowcharts", "Pseudo code", "Executable code", "Syntax errors", "Logical errors", "Number systems", "Binary", "Octal", "Decimal", "Hexadecimal"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Data Types, Operators, Variables, Conditional Statements", "topics": ["Data types", "Expressions", "Precedence rules", "Arithmetic operators", "Relational operators", "Logical operators", "Bitwise operators", "Increment operators", "Decrement operators", "Local variables", "Global variables", "Storage classes", "If statements", "Nested if else", "Else if ladder", "Switch case"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Loops, Arrays, Strings, User Defined Data Types", "topics": ["While loop", "Do while loop", "For loop", "Nested loops", "Break", "Continue", "Arrays", "Array declarations", "Multidimensional arrays", "Character arrays", "Strings", "Searching (linear search)", "Searching (binary search)", "Sorting (bubble sort)", "Sorting (selection sort)"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Functions, Methods, Pointers", "topics": ["Functions", "Modular programming", "Function declaration", "Function invocation", "Parameter passing", "Call by value", "Call by reference", "Passing arrays to functions", "Recursion", "Pointers", "Arrays with pointers", "Pointers with arrays", "Pointers with functions"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Structures, Unions, Memory Management, File Handling", "topics": ["Structures", "Union", "Array of structures", "Self referential structures", "Dynamic memory management", "Malloc", "Calloc", "Free", "Command line arguments", "Preprocessor directives", "File operations", "File reading", "File writing", "Appending files"], "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-universal-human-value", "name": "Universal Human Value", "code": "204",
-      "branch": "cse-ai", "year": 1, "semester": 2,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "BTCSEAI 204",
-        "courseTitle": "Universal Human Values"
-      },
-      "units": [
-        { "number": 1, "title": "Introduction to Value Education", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Harmony in Human Being", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Harmony in Family and Society", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Harmony with Nature", "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Professional Ethics and Holistic Understanding", "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-mathematics-2", "name": "Mathematics-II", "code": "202",
-      "branch": "cse-ai", "year": 1, "semester": 2,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "BTCSEAI 202",
-        "courseTitle": "Mathematics-II"
-      },
-      "units": [
-        {
-          "number": 1,
-          "title": "Basic Probability",
-          "topics": [
-            "Probability spaces",
-            "Conditional probability",
-            "Independence",
-            "Discrete random variables",
-            "Independent random variables",
-            "Multinomial distribution",
-            "Poisson approximation to binomial distribution",
-            "Infinite sequences of Bernoulli trials",
-            "Sum of independent random variables",
-            "Expectation",
-            "Variance of a sum",
-            "Chebyshev's inequality"
-          ],
-          "playlist": "https://youtube.com/playlist?list=PLQD3kstroiFlGFiCQQdPCho85tvH9zJyr",
-          "notes": "",
-          "pyqs": ""
-        },
-        {
-          "number": 2,
-          "title": "Continuous Probability Distributions",
-          "topics": [
-            "Continuous random variables",
-            "Properties of continuous random variables",
-            "Distribution functions and density functions",
-            "Normal distribution",
-            "Exponential distribution",
-            "Gamma distribution"
-          ],
-          "playlist": "",
-          "notes": "",
-          "pyqs": ""
-        },
-        {
-          "number": 3,
-          "title": "Bivariate Distributions",
-          "topics": [
-            "Bivariate distributions",
-            "Properties of bivariate distributions",
-            "Distribution of sums",
-            "Distribution of quotients",
-            "Conditional densities",
-            "Bayes' rule"
-          ],
-          "playlist": "",
-          "notes": "",
-          "pyqs": ""
-        },
-        {
-          "number": 4,
-          "title": "Basic Statistics",
-          "topics": [
-            "Measures of central tendency",
-            "Moments",
-            "Skewness",
-            "Kurtosis",
-            "Binomial distribution",
-            "Poisson distribution",
-            "Normal distribution",
-            "Evaluation of statistical parameters",
-            "Correlation",
-            "Regression",
-            "Rank correlation"
-          ],
-          "playlist": "",
-          "notes": "",
-          "pyqs": ""
-        },
-        {
-          "number": 5,
-          "title": "Applied Statistics and Hypothesis Testing",
-          "topics": [
-            "Curve fitting using method of least squares",
-            "Fitting of straight lines",
-            "Fitting of second degree parabola",
-            "Fitting of general curves",
-            "Test of significance",
-            "Large sample test for single proportion",
-            "Difference of proportions test",
-            "Test for single mean",
-            "Difference of means test",
-            "Difference of standard deviations test",
-            "Test for correlation coefficients",
-            "Test for ratio of variances",
-            "Chi-square test for goodness of fit",
-            "Chi-square test for independence of attributes"
-          ],
-          "playlist": "",
-          "notes": "",
-          "pyqs": ""
-        }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-chemistry", "name": "Chemistry", "code": "BTCSEAI 201",
-      "branch": "cse-ai", "year": 1, "semester": 2,
-      "syllabus": "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view",
-      "syllabusPdf": "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view",
-      "syllabusData": {
-        "courseCode": "BTCSEAI 201",
-        "courseTitle": "Chemistry"
-      },
-      "units": [
-        { "number": 1, "title": "Atomic and Molecular Structure", "topics": ["Schrodinger equation", "Hydrogen atom wave functions", "Plots of wave functions", "Shapes of atomic orbitals", "Molecular orbitals of diatomic molecules", "Energy level diagrams", "Molecular orbitals of butadiene and benzene", "Aromaticity", "Crystal field theory", "Energy level diagrams for transition metal ions", "Band structure of solids", "Density of states"], "playlist": "", "notes": "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view", "notesDriveUrl": "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view", "unitNotes": "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view", "pyqs": "" },
-        { "number": 2, "title": "Spectroscopic Techniques and Applications", "topics": ["Principles of spectroscopy", "Selection rules", "Electronic spectroscopy", "Fluorescence and applications", "Vibrational spectroscopy", "Rotational spectroscopy", "Applications", "Nuclear magnetic resonance (NMR)", "Magnetic resonance imaging (MRI)", "Surface characterization techniques", "Diffraction and scattering"], "playlist": "", "notes": "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view", "notesDriveUrl": "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view", "unitNotes": "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view", "pyqs": "" },
-        { "number": 3, "title": "Use of Free Energy in Chemical Equilibria", "topics": ["Thermodynamic functions", "Energy", "Entropy", "Free energy", "Estimations of entropy and free energy", "Free energy and cell potentials", "Nernst equation", "Acids", "Oxidation reduction", "Solubility equilibria", "Corrosion", "Ellingham diagrams"], "playlist": "", "notes": "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view", "notesDriveUrl": "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view", "unitNotes": "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view", "pyqs": "" },
-        { "number": 4, "title": "Periodic Properties", "topics": ["Effective nuclear charge", "Penetration of orbitals", "Variation of s, p, d orbital energies", "Electronic configuration", "Atomic size", "Ionic size", "Ionization energy", "Electron affinity", "Electronegativity", "Polarizability", "Oxidation states", "Coordination numbers", "Hard and soft acids"], "playlist": "", "notes": "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view", "notesDriveUrl": "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view", "unitNotes": "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view", "pyqs": "" },
-        { "number": 5, "title": "Stereochemistry and Organic Reactions", "topics": ["Representations of 3D structures", "Structural isomers", "Stereoisomers", "Configurations and symmetry", "Chirality", "Enantiomers", "Diastereomers", "Optical activity", "Conformational analysis", "Isomerism in transition metal compounds", "Substitution reactions", "Addition reactions", "Elimination reactions", "Oxidation reactions", "Reduction reactions", "Cyclization reactions", "Rearrangement reactions"], "playlist": "", "notes": "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view", "notesDriveUrl": "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view", "unitNotes": "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-workshop", "name": "Workshop", "code": "206",
-      "branch": "cse-ai", "year": 1, "semester": 2,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "BTCSEAI 206",
-        "courseTitle": "Workshop & Manufacturing Practices Lab"
-      },
-      "units": [
-        { "number": 1, "title": "Workshop Safety and Tools", "topics": ["Workshop safety", "Tools and equipment usage"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 2, "title": "Basic Workshop Practices", "topics": ["Fitting practice", "Carpentry", "Electrical workshop basics"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 3, "title": "Metal Work", "topics": ["Metal cutting", "Welding", "Casting", "Smithy"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 4, "title": "Material Processing", "topics": ["Plastic molding", "Glass cutting"], "playlist": "", "notes": "", "pyqs": "" },
-        { "number": 5, "title": "Project Work", "topics": ["Team project model building"], "playlist": "", "notes": "", "pyqs": "" }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    },
-    {
-      "id": "cse-ai-evs", "name": "EVS", "code": "",
-      "branch": "cse-ai", "year": 1, "semester": 2,
-      "syllabus": "",
-      "syllabusData": {
-        "courseCode": "BTCSEAI EVS",
-        "courseTitle": "Environmental Science",
-        "lectureHours": "2L:0T:0P",
-        "credits": 2,
-        "courseOutcomes": [
-          { "id": "CO1", "description": "Understand the multidisciplinary nature and fundamental concepts of the environment." },
-          { "id": "CO2", "description": "Identify major types of natural resources, biodiversity, and the importance of their conservation." },
-          { "id": "CO3", "description": "Analyze various forms of environmental pollution and explore suitable control measures." },
-          { "id": "CO4", "description": "Understand and apply concepts related to sustainable development, EIA, and environmental legislation." },
-          { "id": "CO5", "description": "Demonstrate awareness of global environmental issues, ethics, and the role of technology in monitoring." }
-        ],
-        "coPoMapping": [
-          { "co": "CO1", "po": { "1": 3, "2": 2, "3": null, "4": null, "5": 1, "6": 2, "7": 3, "8": 2, "9": 1, "10": 1, "11": null, "12": 2 }, "pso": { "O1": 2, "O2": null, "O3": null } },
-          { "co": "CO2", "po": { "1": 2, "2": 2, "3": 1, "4": null, "5": 1, "6": 2, "7": 3, "8": 2, "9": 1, "10": null, "11": null, "12": 2 }, "pso": { "O1": 2, "O2": 1, "O3": null } },
-          { "co": "CO3", "po": { "1": 3, "2": 3, "3": 2, "4": 1, "5": 2, "6": 3, "7": 3, "8": 2, "9": 1, "10": 1, "11": null, "12": 3 }, "pso": { "O1": 2, "O2": 2, "O3": null } },
-          { "co": "CO4", "po": { "1": 2, "2": 3, "3": 2, "4": 2, "5": 2, "6": 3, "7": 2, "8": 3, "9": 2, "10": 1, "11": null, "12": 3 }, "pso": { "O1": 2, "O2": 1, "O3": null } },
-          { "co": "CO5", "po": { "1": 2, "2": 2, "3": 1, "4": 1, "5": 1, "6": 3, "7": 3, "8": 3, "9": 2, "10": 1, "11": null, "12": 3 }, "pso": { "O1": 2, "O2": 1, "O3": null } }
-        ],
-        "referenceBooks": [
-          "Erach Bharucha, Textbook of Environmental Studies for Undergraduate Courses, Universities Press.",
-          "Benny Joseph, Environmental Studies, Tata McGraw Hill.",
-          "Subrat Roy, Environmental Science (AICTE Prescribed Textbook), Khanna Publishers.",
-          "Anubha Kaushik and C.P. Kaushik, Environmental Studies, New Age International."
-        ],
-        "teachingStrategies": [
-          "Interactive lectures and real-world case studies.",
-          "Field surveys and eco-audits.",
-          "Group discussions and debates on environmental ethics.",
-          "Audio-visual presentations and document-based assessments."
-        ],
-        "assessmentMethods": [
-          "Internal Assessment: 40 Marks (Assignments, Case Studies, Class Tests, Attendance).",
-          "Semester Exam: 60 Marks (Theory only).",
-          "Total: 100 Marks."
-        ],
-        "internalMarks": 40,
-        "semesterMarks": 60
-      },
-      "units": [
-        {
-          "number": 1,
-          "title": "Multidisciplinary Nature of Environmental Studies & Natural Resources",
-          "topics": ["Definition, scope and importance of environmental studies", "Components of environment", "Renewable and non-renewable resources", "Forest, water, mineral, food, energy, land resources", "Associated problems and conservation practices"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 2,
-          "title": "Ecosystems and Biodiversity",
-          "topics": ["Ecosystem structure, function and types", "Food chains, food webs and ecological pyramids", "Biodiversity definition, types and value", "India as a mega-diversity nation", "Threats to biodiversity and conservation strategies"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 3,
-          "title": "Environmental Pollution",
-          "topics": ["Air, water, soil and noise pollution", "Causes, effects and control measures", "Solid waste management", "Role of individuals in pollution control", "Public health aspects and disaster management basics"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 4,
-          "title": "Social Issues, Sustainable Development & Environmental Legislation",
-          "topics": ["Sustainable development goals", "Climate change, global warming and ozone depletion", "Related treaties", "Environmental Protection Act, Water Act, Air Act", "Wildlife and Forest Conservation Acts", "Role of NGOs and public awareness campaigns"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        },
-        {
-          "number": 5,
-          "title": "Environmental Impact Assessment and Role of IT",
-          "topics": ["EIA process: screening, scoping, data collection and evaluation", "Environmental Management Plan", "Environmental ethics and green campus initiatives", "Use of information technology and GIS in environmental monitoring"],
-          "hours": 6,
-          "playlist": "", "notes": "", "pyqs": ""
-        }
-      ],
-      "pyqs": { "sessional": "", "semester": "" }
-    }
-  ]
+﻿{
+    "branches":  [
+                     {
+                         "id":  "cse",
+                         "name":  "CSE",
+                         "fullName":  "Computer Science \u0026 Engineering",
+                         "icon":  "cpu",
+                         "color":  "#6366f1"
+                     },
+                     {
+                         "id":  "cse-ai",
+                         "name":  "CSE-AI",
+                         "fullName":  "CSE with Artificial Intelligence",
+                         "icon":  "brain",
+                         "color":  "#8b5cf6"
+                     },
+                     {
+                         "id":  "ece",
+                         "name":  "ECE",
+                         "fullName":  "Electronics \u0026 Communication Engg.",
+                         "icon":  "radio",
+                         "color":  "#06b6d4"
+                     }
+                 ],
+    "subjects":  [
+                     {
+                         "id":  "cse-mathematics-1",
+                         "name":  "Mathematics-I",
+                         "code":  "102",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-programming-for-problem-solving",
+                         "name":  "Programming for Problem Solving",
+                         "code":  "202",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabusData":  {
+                                              "courseCode":  "202",
+                                              "courseTitle":  "Programming for Problem Solving"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Introduction to Programming",
+                                           "topics":  [
+                                                          "Computer components",
+                                                          "Memory",
+                                                          "Disk",
+                                                          "Processor",
+                                                          "Evolution of programming languages",
+                                                          "Machine language",
+                                                          "Assembly language",
+                                                          "High level language",
+                                                          "System software",
+                                                          "Application software",
+                                                          "Compiler",
+                                                          "Linker",
+                                                          "Loader",
+                                                          "Basic algorithm development",
+                                                          "Flowcharts",
+                                                          "Pseudo code",
+                                                          "Executable code",
+                                                          "Syntax errors",
+                                                          "Logical errors",
+                                                          "Number systems",
+                                                          "Binary",
+                                                          "Octal",
+                                                          "Decimal",
+                                                          "Hexadecimal"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Data Types, Operators, Variables, Conditional Statements",
+                                           "topics":  [
+                                                          "Data types",
+                                                          "Expressions",
+                                                          "Precedence rules",
+                                                          "Arithmetic operators",
+                                                          "Relational operators",
+                                                          "Logical operators",
+                                                          "Bitwise operators",
+                                                          "Increment operators",
+                                                          "Decrement operators",
+                                                          "Local variables",
+                                                          "Global variables",
+                                                          "Storage classes",
+                                                          "If statements",
+                                                          "Nested if else",
+                                                          "Else if ladder",
+                                                          "Switch case"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Loops, Arrays, Strings, User Defined Data Types",
+                                           "topics":  [
+                                                          "While loop",
+                                                          "Do while loop",
+                                                          "For loop",
+                                                          "Nested loops",
+                                                          "Break",
+                                                          "Continue",
+                                                          "Arrays",
+                                                          "Array declarations",
+                                                          "Multidimensional arrays",
+                                                          "Character arrays",
+                                                          "Strings",
+                                                          "Searching (linear search)",
+                                                          "Searching (binary search)",
+                                                          "Sorting (bubble sort)",
+                                                          "Sorting (selection sort)"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Functions, Methods, Pointers",
+                                           "topics":  [
+                                                          "Functions",
+                                                          "Modular programming",
+                                                          "Function declaration",
+                                                          "Function invocation",
+                                                          "Parameter passing",
+                                                          "Call by value",
+                                                          "Call by reference",
+                                                          "Passing arrays to functions",
+                                                          "Recursion",
+                                                          "Pointers",
+                                                          "Arrays with pointers",
+                                                          "Pointers with arrays",
+                                                          "Pointers with functions"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Structures, Unions, Memory Management, File Handling",
+                                           "topics":  [
+                                                          "Structures",
+                                                          "Union",
+                                                          "Array of structures",
+                                                          "Self referential structures",
+                                                          "Dynamic memory management",
+                                                          "Malloc",
+                                                          "Calloc",
+                                                          "Free",
+                                                          "Command line arguments",
+                                                          "Preprocessor directives",
+                                                          "File operations",
+                                                          "File reading",
+                                                          "File writing",
+                                                          "Appending files"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1l9el3cjnMklfdYluv8h-nmA0ToiJMNmo/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1l9el3cjnMklfdYluv8h-nmA0ToiJMNmo/view?usp=drive_link"
+                     },
+                     {
+                         "id":  "cse-chemistry",
+                         "name":  "Chemistry",
+                         "code":  "302",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabus":  "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view?usp=drive_link",
+                         "syllabusData":  {
+                                              "courseCode":  "302",
+                                              "courseTitle":  "Chemistry"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Atomic and Molecular Structure",
+                                           "topics":  [
+                                                          "Schrodinger equation",
+                                                          "Hydrogen atom wave functions",
+                                                          "Plots of wave functions",
+                                                          "Shapes of atomic orbitals",
+                                                          "Molecular orbitals of diatomic molecules",
+                                                          "Energy level diagrams",
+                                                          "Molecular orbitals of butadiene and benzene",
+                                                          "Aromaticity",
+                                                          "Crystal field theory",
+                                                          "Energy level diagrams for transition metal ions",
+                                                          "Band structure of solids",
+                                                          "Density of states"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view?usp=drive_link",
+                                           "unitNotes":  "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view?usp=drive_link",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Spectroscopic Techniques and Applications",
+                                           "topics":  [
+                                                          "Principles of spectroscopy",
+                                                          "Selection rules",
+                                                          "Electronic spectroscopy",
+                                                          "Fluorescence and applications",
+                                                          "Vibrational spectroscopy",
+                                                          "Rotational spectroscopy",
+                                                          "Applications",
+                                                          "Nuclear magnetic resonance (NMR)",
+                                                          "Magnetic resonance imaging (MRI)",
+                                                          "Surface characterization techniques",
+                                                          "Diffraction and scattering"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view?usp=drive_link",
+                                           "unitNotes":  "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view?usp=drive_link",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Use of Free Energy in Chemical Equilibria",
+                                           "topics":  [
+                                                          "Thermodynamic functions",
+                                                          "Energy",
+                                                          "Entropy",
+                                                          "Free energy",
+                                                          "Estimations of entropy and free energy",
+                                                          "Free energy and cell potentials",
+                                                          "Nernst equation",
+                                                          "Acids",
+                                                          "Oxidation reduction",
+                                                          "Solubility equilibria",
+                                                          "Corrosion",
+                                                          "Ellingham diagrams"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view?usp=drive_link",
+                                           "unitNotes":  "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view?usp=drive_link",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Periodic Properties",
+                                           "topics":  [
+                                                          "Effective nuclear charge",
+                                                          "Penetration of orbitals",
+                                                          "Variation of s, p, d orbital energies",
+                                                          "Electronic configuration",
+                                                          "Atomic size",
+                                                          "Ionic size",
+                                                          "Ionization energy",
+                                                          "Electron affinity",
+                                                          "Electronegativity",
+                                                          "Polarizability",
+                                                          "Oxidation states",
+                                                          "Coordination numbers",
+                                                          "Hard and soft acids"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view?usp=drive_link",
+                                           "unitNotes":  "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view?usp=drive_link",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Stereochemistry and Organic Reactions",
+                                           "topics":  [
+                                                          "Representations of 3D structures",
+                                                          "Structural isomers",
+                                                          "Stereoisomers",
+                                                          "Configurations and symmetry",
+                                                          "Chirality",
+                                                          "Enantiomers",
+                                                          "Diastereomers",
+                                                          "Optical activity",
+                                                          "Conformational analysis",
+                                                          "Isomerism in transition metal compounds",
+                                                          "Substitution reactions",
+                                                          "Addition reactions",
+                                                          "Elimination reactions",
+                                                          "Oxidation reactions",
+                                                          "Reduction reactions",
+                                                          "Cyclization reactions",
+                                                          "Rearrangement reactions"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view?usp=drive_link",
+                                           "unitNotes":  "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view?usp=drive_link",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-universal-human-value",
+                         "name":  "Universal Human Value",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabusData":  {
+                                              "courseCode":  "UHV",
+                                              "courseTitle":  "Universal Human Values"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Introduction to Value Education",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Harmony in Human Being",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Harmony in Family and Society",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Harmony with Nature",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Professional Ethics and Holistic Understanding",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1KB2_RSl6S5zhemgQckids3CgI3slCU0W/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1KB2_RSl6S5zhemgQckids3CgI3slCU0W/view?usp=drive_link"
+                     },
+                     {
+                         "id":  "cse-workshop",
+                         "name":  "Workshop",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  1,
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1gWsdW5ICruLo3awWemjDh1I95vqis1Ns/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1gWsdW5ICruLo3awWemjDh1I95vqis1Ns/view?usp=drive_link"
+                     },
+                     {
+                         "id":  "cse-mathematics-2",
+                         "name":  "Mathematics-II",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabus":  "https://drive.google.com/file/d/1ankCyK_d4yyz7soKiS3ZOFalRD_Iiug4/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1ankCyK_d4yyz7soKiS3ZOFalRD_Iiug4/view?usp=drive_link",
+                         "pyqs":  {
+                                      "sessional":  "https://drive.google.com/file/d/1b5gp_bAWvS5_BgZlciybyJ44Cr9yC8_i/view?usp=sharing",
+                                      "semester":  "https://drive.google.com/file/d/1FjRHjlrCtnzIyH1sAcp1gfv0_7IOrzq_/view?usp=sharing"
+                                  },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "topics":  [
+                                                          "RGPV One Shot Probability | Introduction to Probability \u0026 Statistics | IPS | Full Syllabus | PART-1"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "topics":  [
+                                                          "RGPV One Shot Probability | Introduction to Probability \u0026 Statistics | IPS | Full Syllabus | PART-1"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "topics":  [
+                                                          "Bivariate Continuous Random Variable, Joint PDF, Marginal PDF x and y | By GP Sir"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "topics":  [
+                                                          "Statistics One Shot RGPV 2026 | Introduction to Probability \u0026 Statistics Complete Revision PART-2"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "topics":  [
+                                                          "Regression + Curve Fitting + Hypothesis Testing | RGPV IPS One Shot 2026 PART-3 (Statistics)"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ]
+                     },
+                     {
+                         "id":  "cse-graphic-design",
+                         "name":  "Graphic Design",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-applied-physics",
+                         "name":  "Applied Physics",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-basic-electrical-engineering",
+                         "name":  "Basic Electrical Engineering",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-english-communication",
+                         "name":  "English Communication",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-evs",
+                         "name":  "EVS",
+                         "code":  "",
+                         "branch":  "cse",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabusData":  {
+                                              "courseCode":  "BTCSEAI EVS",
+                                              "courseTitle":  "Environmental Science",
+                                              "lectureHours":  "2L:0T:0P",
+                                              "credits":  2,
+                                              "courseOutcomes":  [
+                                                                     {
+                                                                         "id":  "CO1",
+                                                                         "description":  "Understand the multidisciplinary nature and fundamental concepts of the environment."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO2",
+                                                                         "description":  "Identify major types of natural resources, biodiversity, and the importance of their conservation."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO3",
+                                                                         "description":  "Analyze various forms of environmental pollution and explore suitable control measures."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO4",
+                                                                         "description":  "Understand and apply concepts related to sustainable development, EIA, and environmental legislation."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO5",
+                                                                         "description":  "Demonstrate awareness of global environmental issues, ethics, and the role of technology in monitoring."
+                                                                     }
+                                                                 ],
+                                              "coPoMapping":  [
+                                                                  {
+                                                                      "co":  "CO1",
+                                                                      "po":  {
+                                                                                 "1":  3,
+                                                                                 "2":  2,
+                                                                                 "3":  null,
+                                                                                 "4":  null,
+                                                                                 "5":  1,
+                                                                                 "6":  2,
+                                                                                 "7":  3,
+                                                                                 "8":  2,
+                                                                                 "9":  1,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  2
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  null,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO2",
+                                                                      "po":  {
+                                                                                 "1":  2,
+                                                                                 "2":  2,
+                                                                                 "3":  1,
+                                                                                 "4":  null,
+                                                                                 "5":  1,
+                                                                                 "6":  2,
+                                                                                 "7":  3,
+                                                                                 "8":  2,
+                                                                                 "9":  1,
+                                                                                 "10":  null,
+                                                                                 "11":  null,
+                                                                                 "12":  2
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  1,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO3",
+                                                                      "po":  {
+                                                                                 "1":  3,
+                                                                                 "2":  3,
+                                                                                 "3":  2,
+                                                                                 "4":  1,
+                                                                                 "5":  2,
+                                                                                 "6":  3,
+                                                                                 "7":  3,
+                                                                                 "8":  2,
+                                                                                 "9":  1,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  3
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  2,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO4",
+                                                                      "po":  {
+                                                                                 "1":  2,
+                                                                                 "2":  3,
+                                                                                 "3":  2,
+                                                                                 "4":  2,
+                                                                                 "5":  2,
+                                                                                 "6":  3,
+                                                                                 "7":  2,
+                                                                                 "8":  3,
+                                                                                 "9":  2,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  3
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  1,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO5",
+                                                                      "po":  {
+                                                                                 "1":  2,
+                                                                                 "2":  2,
+                                                                                 "3":  1,
+                                                                                 "4":  1,
+                                                                                 "5":  1,
+                                                                                 "6":  3,
+                                                                                 "7":  3,
+                                                                                 "8":  3,
+                                                                                 "9":  2,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  3
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  1,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  }
+                                                              ],
+                                              "referenceBooks":  [
+                                                                     "Erach Bharucha, Textbook of Environmental Studies for Undergraduate Courses, Universities Press.",
+                                                                     "Benny Joseph, Environmental Studies, Tata McGraw Hill.",
+                                                                     "Subrat Roy, Environmental Science (AICTE Prescribed Textbook), Khanna Publishers.",
+                                                                     "Anubha Kaushik and C.P. Kaushik, Environmental Studies, New Age International."
+                                                                 ],
+                                              "teachingStrategies":  [
+                                                                         "Interactive lectures and real-world case studies.",
+                                                                         "Field surveys and eco-audits.",
+                                                                         "Group discussions and debates on environmental ethics.",
+                                                                         "Audio-visual presentations and document-based assessments."
+                                                                     ],
+                                              "assessmentMethods":  [
+                                                                        "Internal Assessment: 40 Marks (Assignments, Case Studies, Class Tests, Attendance).",
+                                                                        "Semester Exam: 60 Marks (Theory only).",
+                                                                        "Total: 100 Marks."
+                                                                    ],
+                                              "internalMarks":  40,
+                                              "semesterMarks":  60
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Multidisciplinary Nature of Environmental Studies \u0026 Natural Resources",
+                                           "topics":  [
+                                                          "Definition, scope and importance of environmental studies",
+                                                          "Components of environment",
+                                                          "Renewable and non-renewable resources",
+                                                          "Forest, water, mineral, food, energy, land resources",
+                                                          "Associated problems and conservation practices"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Ecosystems and Biodiversity",
+                                           "topics":  [
+                                                          "Ecosystem structure, function and types",
+                                                          "Food chains, food webs and ecological pyramids",
+                                                          "Biodiversity definition, types and value",
+                                                          "India as a mega-diversity nation",
+                                                          "Threats to biodiversity and conservation strategies"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Environmental Pollution",
+                                           "topics":  [
+                                                          "Air, water, soil and noise pollution",
+                                                          "Causes, effects and control measures",
+                                                          "Solid waste management",
+                                                          "Role of individuals in pollution control",
+                                                          "Public health aspects and disaster management basics"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Social Issues, Sustainable Development \u0026 Environmental Legislation",
+                                           "topics":  [
+                                                          "Sustainable development goals",
+                                                          "Climate change, global warming and ozone depletion",
+                                                          "Related treaties",
+                                                          "Environmental Protection Act, Water Act, Air Act",
+                                                          "Wildlife and Forest Conservation Acts",
+                                                          "Role of NGOs and public awareness campaigns"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Environmental Impact Assessment and Role of IT",
+                                           "topics":  [
+                                                          "EIA process: screening, scoping, data collection and evaluation",
+                                                          "Environmental Management Plan",
+                                                          "Environmental ethics and green campus initiatives",
+                                                          "Use of information technology and GIS in environmental monitoring"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1lkvYBaZFkTaTqRJ3QNkvL1hnaUMIiWsm/view?usp=sharing",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1lkvYBaZFkTaTqRJ3QNkvL1hnaUMIiWsm/view?usp=sharing"
+                     },
+                     {
+                         "id":  "cse-ai-applied-physics",
+                         "name":  "Applied Physics",
+                         "code":  "101",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-ai-mathematics-1",
+                         "name":  "Mathematics-I",
+                         "code":  "102",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-ai-bee",
+                         "name":  "Basic Electrical Engineering",
+                         "code":  "103",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-ai-english-comm",
+                         "name":  "English Communication",
+                         "code":  "104",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-ai-graphic-design",
+                         "name":  "Graphic Design",
+                         "code":  "105",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  1,
+                         "syllabus":  "",
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Unit 1",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Unit 2",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Unit 3",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Unit 4",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Unit 5",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-ai-programming-for-problem-solving",
+                         "name":  "Programming for Problem Solving",
+                         "code":  "203",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabusData":  {
+                                              "courseCode":  "BTCSEAI 203",
+                                              "courseTitle":  "Programming for Problem Solving"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Introduction to Programming",
+                                           "topics":  [
+                                                          "Computer components",
+                                                          "Memory",
+                                                          "Disk",
+                                                          "Processor",
+                                                          "Evolution of programming languages",
+                                                          "Machine language",
+                                                          "Assembly language",
+                                                          "High level language",
+                                                          "System software",
+                                                          "Application software",
+                                                          "Compiler",
+                                                          "Linker",
+                                                          "Loader",
+                                                          "Basic algorithm development",
+                                                          "Flowcharts",
+                                                          "Pseudo code",
+                                                          "Executable code",
+                                                          "Syntax errors",
+                                                          "Logical errors",
+                                                          "Number systems",
+                                                          "Binary",
+                                                          "Octal",
+                                                          "Decimal",
+                                                          "Hexadecimal"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Data Types, Operators, Variables, Conditional Statements",
+                                           "topics":  [
+                                                          "Data types",
+                                                          "Expressions",
+                                                          "Precedence rules",
+                                                          "Arithmetic operators",
+                                                          "Relational operators",
+                                                          "Logical operators",
+                                                          "Bitwise operators",
+                                                          "Increment operators",
+                                                          "Decrement operators",
+                                                          "Local variables",
+                                                          "Global variables",
+                                                          "Storage classes",
+                                                          "If statements",
+                                                          "Nested if else",
+                                                          "Else if ladder",
+                                                          "Switch case"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Loops, Arrays, Strings, User Defined Data Types",
+                                           "topics":  [
+                                                          "While loop",
+                                                          "Do while loop",
+                                                          "For loop",
+                                                          "Nested loops",
+                                                          "Break",
+                                                          "Continue",
+                                                          "Arrays",
+                                                          "Array declarations",
+                                                          "Multidimensional arrays",
+                                                          "Character arrays",
+                                                          "Strings",
+                                                          "Searching (linear search)",
+                                                          "Searching (binary search)",
+                                                          "Sorting (bubble sort)",
+                                                          "Sorting (selection sort)"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Functions, Methods, Pointers",
+                                           "topics":  [
+                                                          "Functions",
+                                                          "Modular programming",
+                                                          "Function declaration",
+                                                          "Function invocation",
+                                                          "Parameter passing",
+                                                          "Call by value",
+                                                          "Call by reference",
+                                                          "Passing arrays to functions",
+                                                          "Recursion",
+                                                          "Pointers",
+                                                          "Arrays with pointers",
+                                                          "Pointers with arrays",
+                                                          "Pointers with functions"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Structures, Unions, Memory Management, File Handling",
+                                           "topics":  [
+                                                          "Structures",
+                                                          "Union",
+                                                          "Array of structures",
+                                                          "Self referential structures",
+                                                          "Dynamic memory management",
+                                                          "Malloc",
+                                                          "Calloc",
+                                                          "Free",
+                                                          "Command line arguments",
+                                                          "Preprocessor directives",
+                                                          "File operations",
+                                                          "File reading",
+                                                          "File writing",
+                                                          "Appending files"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1l9el3cjnMklfdYluv8h-nmA0ToiJMNmo/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1l9el3cjnMklfdYluv8h-nmA0ToiJMNmo/view?usp=drive_link"
+                     },
+                     {
+                         "id":  "cse-ai-universal-human-value",
+                         "name":  "Universal Human Value",
+                         "code":  "204",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabusData":  {
+                                              "courseCode":  "BTCSEAI 204",
+                                              "courseTitle":  "Universal Human Values"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Introduction to Value Education",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Harmony in Human Being",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Harmony in Family and Society",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Harmony with Nature",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Professional Ethics and Holistic Understanding",
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1KB2_RSl6S5zhemgQckids3CgI3slCU0W/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1KB2_RSl6S5zhemgQckids3CgI3slCU0W/view?usp=drive_link"
+                     },
+                     {
+                         "id":  "cse-ai-mathematics-2",
+                         "name":  "Mathematics-II",
+                         "code":  "202",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabusData":  {
+                                              "courseCode":  "BTCSEAI 202",
+                                              "courseTitle":  "Mathematics-II"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Basic Probability",
+                                           "topics":  [
+                                                          "Probability spaces",
+                                                          "Conditional probability",
+                                                          "Independence",
+                                                          "Discrete random variables",
+                                                          "Independent random variables",
+                                                          "Multinomial distribution",
+                                                          "Poisson approximation to binomial distribution",
+                                                          "Infinite sequences of Bernoulli trials",
+                                                          "Sum of independent random variables",
+                                                          "Expectation",
+                                                          "Variance of a sum",
+                                                          "Chebyshev\u0027s inequality"
+                                                      ],
+                                           "playlist":  "https://youtube.com/playlist?list=PLQD3kstroiFlGFiCQQdPCho85tvH9zJyr",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Continuous Probability Distributions",
+                                           "topics":  [
+                                                          "Continuous random variables",
+                                                          "Properties of continuous random variables",
+                                                          "Distribution functions and density functions",
+                                                          "Normal distribution",
+                                                          "Exponential distribution",
+                                                          "Gamma distribution"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Bivariate Distributions",
+                                           "topics":  [
+                                                          "Bivariate distributions",
+                                                          "Properties of bivariate distributions",
+                                                          "Distribution of sums",
+                                                          "Distribution of quotients",
+                                                          "Conditional densities",
+                                                          "Bayes\u0027 rule"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Basic Statistics",
+                                           "topics":  [
+                                                          "Measures of central tendency",
+                                                          "Moments",
+                                                          "Skewness",
+                                                          "Kurtosis",
+                                                          "Binomial distribution",
+                                                          "Poisson distribution",
+                                                          "Normal distribution",
+                                                          "Evaluation of statistical parameters",
+                                                          "Correlation",
+                                                          "Regression",
+                                                          "Rank correlation"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Applied Statistics and Hypothesis Testing",
+                                           "topics":  [
+                                                          "Curve fitting using method of least squares",
+                                                          "Fitting of straight lines",
+                                                          "Fitting of second degree parabola",
+                                                          "Fitting of general curves",
+                                                          "Test of significance",
+                                                          "Large sample test for single proportion",
+                                                          "Difference of proportions test",
+                                                          "Test for single mean",
+                                                          "Difference of means test",
+                                                          "Difference of standard deviations test",
+                                                          "Test for correlation coefficients",
+                                                          "Test for ratio of variances",
+                                                          "Chi-square test for goodness of fit",
+                                                          "Chi-square test for independence of attributes"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "syllabus":  "https://drive.google.com/file/d/1ankCyK_d4yyz7soKiS3ZOFalRD_Iiug4/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1ankCyK_d4yyz7soKiS3ZOFalRD_Iiug4/view?usp=drive_link",
+                         "pyqs":  {
+                                      "sessional":  "https://drive.google.com/file/d/1b5gp_bAWvS5_BgZlciybyJ44Cr9yC8_i/view?usp=sharing",
+                                      "semester":  "https://drive.google.com/file/d/1FjRHjlrCtnzIyH1sAcp1gfv0_7IOrzq_/view?usp=sharing"
+                                  }
+                     },
+                     {
+                         "id":  "cse-ai-chemistry",
+                         "name":  "Chemistry",
+                         "code":  "BTCSEAI 201",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabus":  "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1XNhajN7RaVVsds0NropbZFNTitC75aQO/view",
+                         "syllabusData":  {
+                                              "courseCode":  "BTCSEAI 201",
+                                              "courseTitle":  "Chemistry"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Atomic and Molecular Structure",
+                                           "topics":  [
+                                                          "Schrodinger equation",
+                                                          "Hydrogen atom wave functions",
+                                                          "Plots of wave functions",
+                                                          "Shapes of atomic orbitals",
+                                                          "Molecular orbitals of diatomic molecules",
+                                                          "Energy level diagrams",
+                                                          "Molecular orbitals of butadiene and benzene",
+                                                          "Aromaticity",
+                                                          "Crystal field theory",
+                                                          "Energy level diagrams for transition metal ions",
+                                                          "Band structure of solids",
+                                                          "Density of states"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view",
+                                           "notesDriveUrl":  "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view",
+                                           "unitNotes":  "https://drive.google.com/file/d/1-5yT8b8mMi3hFeKs3OhZE3BhsvJzIRam/view",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Spectroscopic Techniques and Applications",
+                                           "topics":  [
+                                                          "Principles of spectroscopy",
+                                                          "Selection rules",
+                                                          "Electronic spectroscopy",
+                                                          "Fluorescence and applications",
+                                                          "Vibrational spectroscopy",
+                                                          "Rotational spectroscopy",
+                                                          "Applications",
+                                                          "Nuclear magnetic resonance (NMR)",
+                                                          "Magnetic resonance imaging (MRI)",
+                                                          "Surface characterization techniques",
+                                                          "Diffraction and scattering"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view",
+                                           "notesDriveUrl":  "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view",
+                                           "unitNotes":  "https://drive.google.com/file/d/1PktrbK7a87HQqBzwPhAIn8upSx14lJhl/view",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Use of Free Energy in Chemical Equilibria",
+                                           "topics":  [
+                                                          "Thermodynamic functions",
+                                                          "Energy",
+                                                          "Entropy",
+                                                          "Free energy",
+                                                          "Estimations of entropy and free energy",
+                                                          "Free energy and cell potentials",
+                                                          "Nernst equation",
+                                                          "Acids",
+                                                          "Oxidation reduction",
+                                                          "Solubility equilibria",
+                                                          "Corrosion",
+                                                          "Ellingham diagrams"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view",
+                                           "notesDriveUrl":  "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view",
+                                           "unitNotes":  "https://drive.google.com/file/d/1LQAHq8lmxiBklbFrTDLh-8NyZk8r_bqT/view",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Periodic Properties",
+                                           "topics":  [
+                                                          "Effective nuclear charge",
+                                                          "Penetration of orbitals",
+                                                          "Variation of s, p, d orbital energies",
+                                                          "Electronic configuration",
+                                                          "Atomic size",
+                                                          "Ionic size",
+                                                          "Ionization energy",
+                                                          "Electron affinity",
+                                                          "Electronegativity",
+                                                          "Polarizability",
+                                                          "Oxidation states",
+                                                          "Coordination numbers",
+                                                          "Hard and soft acids"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view",
+                                           "notesDriveUrl":  "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view",
+                                           "unitNotes":  "https://drive.google.com/file/d/18i22M7Q-76Ef_sRnm3y1IB5zECz2n8RM/view",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Stereochemistry and Organic Reactions",
+                                           "topics":  [
+                                                          "Representations of 3D structures",
+                                                          "Structural isomers",
+                                                          "Stereoisomers",
+                                                          "Configurations and symmetry",
+                                                          "Chirality",
+                                                          "Enantiomers",
+                                                          "Diastereomers",
+                                                          "Optical activity",
+                                                          "Conformational analysis",
+                                                          "Isomerism in transition metal compounds",
+                                                          "Substitution reactions",
+                                                          "Addition reactions",
+                                                          "Elimination reactions",
+                                                          "Oxidation reactions",
+                                                          "Reduction reactions",
+                                                          "Cyclization reactions",
+                                                          "Rearrangement reactions"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view",
+                                           "notesDriveUrl":  "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view",
+                                           "unitNotes":  "https://drive.google.com/file/d/1SGYJI5fYoXAMFy_qKaqy4z6ad_t5qgLw/view",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  }
+                     },
+                     {
+                         "id":  "cse-ai-workshop",
+                         "name":  "Workshop",
+                         "code":  "206",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabusData":  {
+                                              "courseCode":  "BTCSEAI 206",
+                                              "courseTitle":  "Workshop \u0026 Manufacturing Practices Lab"
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Workshop Safety and Tools",
+                                           "topics":  [
+                                                          "Workshop safety",
+                                                          "Tools and equipment usage"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Basic Workshop Practices",
+                                           "topics":  [
+                                                          "Fitting practice",
+                                                          "Carpentry",
+                                                          "Electrical workshop basics"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Metal Work",
+                                           "topics":  [
+                                                          "Metal cutting",
+                                                          "Welding",
+                                                          "Casting",
+                                                          "Smithy"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Material Processing",
+                                           "topics":  [
+                                                          "Plastic molding",
+                                                          "Glass cutting"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Project Work",
+                                           "topics":  [
+                                                          "Team project model building"
+                                                      ],
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1gWsdW5ICruLo3awWemjDh1I95vqis1Ns/view?usp=drive_link",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1gWsdW5ICruLo3awWemjDh1I95vqis1Ns/view?usp=drive_link"
+                     },
+                     {
+                         "id":  "cse-ai-evs",
+                         "name":  "EVS",
+                         "code":  "",
+                         "branch":  "cse-ai",
+                         "year":  1,
+                         "semester":  2,
+                         "syllabusData":  {
+                                              "courseCode":  "BTCSEAI EVS",
+                                              "courseTitle":  "Environmental Science",
+                                              "lectureHours":  "2L:0T:0P",
+                                              "credits":  2,
+                                              "courseOutcomes":  [
+                                                                     {
+                                                                         "id":  "CO1",
+                                                                         "description":  "Understand the multidisciplinary nature and fundamental concepts of the environment."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO2",
+                                                                         "description":  "Identify major types of natural resources, biodiversity, and the importance of their conservation."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO3",
+                                                                         "description":  "Analyze various forms of environmental pollution and explore suitable control measures."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO4",
+                                                                         "description":  "Understand and apply concepts related to sustainable development, EIA, and environmental legislation."
+                                                                     },
+                                                                     {
+                                                                         "id":  "CO5",
+                                                                         "description":  "Demonstrate awareness of global environmental issues, ethics, and the role of technology in monitoring."
+                                                                     }
+                                                                 ],
+                                              "coPoMapping":  [
+                                                                  {
+                                                                      "co":  "CO1",
+                                                                      "po":  {
+                                                                                 "1":  3,
+                                                                                 "2":  2,
+                                                                                 "3":  null,
+                                                                                 "4":  null,
+                                                                                 "5":  1,
+                                                                                 "6":  2,
+                                                                                 "7":  3,
+                                                                                 "8":  2,
+                                                                                 "9":  1,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  2
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  null,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO2",
+                                                                      "po":  {
+                                                                                 "1":  2,
+                                                                                 "2":  2,
+                                                                                 "3":  1,
+                                                                                 "4":  null,
+                                                                                 "5":  1,
+                                                                                 "6":  2,
+                                                                                 "7":  3,
+                                                                                 "8":  2,
+                                                                                 "9":  1,
+                                                                                 "10":  null,
+                                                                                 "11":  null,
+                                                                                 "12":  2
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  1,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO3",
+                                                                      "po":  {
+                                                                                 "1":  3,
+                                                                                 "2":  3,
+                                                                                 "3":  2,
+                                                                                 "4":  1,
+                                                                                 "5":  2,
+                                                                                 "6":  3,
+                                                                                 "7":  3,
+                                                                                 "8":  2,
+                                                                                 "9":  1,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  3
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  2,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO4",
+                                                                      "po":  {
+                                                                                 "1":  2,
+                                                                                 "2":  3,
+                                                                                 "3":  2,
+                                                                                 "4":  2,
+                                                                                 "5":  2,
+                                                                                 "6":  3,
+                                                                                 "7":  2,
+                                                                                 "8":  3,
+                                                                                 "9":  2,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  3
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  1,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  },
+                                                                  {
+                                                                      "co":  "CO5",
+                                                                      "po":  {
+                                                                                 "1":  2,
+                                                                                 "2":  2,
+                                                                                 "3":  1,
+                                                                                 "4":  1,
+                                                                                 "5":  1,
+                                                                                 "6":  3,
+                                                                                 "7":  3,
+                                                                                 "8":  3,
+                                                                                 "9":  2,
+                                                                                 "10":  1,
+                                                                                 "11":  null,
+                                                                                 "12":  3
+                                                                             },
+                                                                      "pso":  {
+                                                                                  "O1":  2,
+                                                                                  "O2":  1,
+                                                                                  "O3":  null
+                                                                              }
+                                                                  }
+                                                              ],
+                                              "referenceBooks":  [
+                                                                     "Erach Bharucha, Textbook of Environmental Studies for Undergraduate Courses, Universities Press.",
+                                                                     "Benny Joseph, Environmental Studies, Tata McGraw Hill.",
+                                                                     "Subrat Roy, Environmental Science (AICTE Prescribed Textbook), Khanna Publishers.",
+                                                                     "Anubha Kaushik and C.P. Kaushik, Environmental Studies, New Age International."
+                                                                 ],
+                                              "teachingStrategies":  [
+                                                                         "Interactive lectures and real-world case studies.",
+                                                                         "Field surveys and eco-audits.",
+                                                                         "Group discussions and debates on environmental ethics.",
+                                                                         "Audio-visual presentations and document-based assessments."
+                                                                     ],
+                                              "assessmentMethods":  [
+                                                                        "Internal Assessment: 40 Marks (Assignments, Case Studies, Class Tests, Attendance).",
+                                                                        "Semester Exam: 60 Marks (Theory only).",
+                                                                        "Total: 100 Marks."
+                                                                    ],
+                                              "internalMarks":  40,
+                                              "semesterMarks":  60
+                                          },
+                         "units":  [
+                                       {
+                                           "number":  1,
+                                           "title":  "Multidisciplinary Nature of Environmental Studies \u0026 Natural Resources",
+                                           "topics":  [
+                                                          "Definition, scope and importance of environmental studies",
+                                                          "Components of environment",
+                                                          "Renewable and non-renewable resources",
+                                                          "Forest, water, mineral, food, energy, land resources",
+                                                          "Associated problems and conservation practices"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  2,
+                                           "title":  "Ecosystems and Biodiversity",
+                                           "topics":  [
+                                                          "Ecosystem structure, function and types",
+                                                          "Food chains, food webs and ecological pyramids",
+                                                          "Biodiversity definition, types and value",
+                                                          "India as a mega-diversity nation",
+                                                          "Threats to biodiversity and conservation strategies"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  3,
+                                           "title":  "Environmental Pollution",
+                                           "topics":  [
+                                                          "Air, water, soil and noise pollution",
+                                                          "Causes, effects and control measures",
+                                                          "Solid waste management",
+                                                          "Role of individuals in pollution control",
+                                                          "Public health aspects and disaster management basics"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  4,
+                                           "title":  "Social Issues, Sustainable Development \u0026 Environmental Legislation",
+                                           "topics":  [
+                                                          "Sustainable development goals",
+                                                          "Climate change, global warming and ozone depletion",
+                                                          "Related treaties",
+                                                          "Environmental Protection Act, Water Act, Air Act",
+                                                          "Wildlife and Forest Conservation Acts",
+                                                          "Role of NGOs and public awareness campaigns"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       },
+                                       {
+                                           "number":  5,
+                                           "title":  "Environmental Impact Assessment and Role of IT",
+                                           "topics":  [
+                                                          "EIA process: screening, scoping, data collection and evaluation",
+                                                          "Environmental Management Plan",
+                                                          "Environmental ethics and green campus initiatives",
+                                                          "Use of information technology and GIS in environmental monitoring"
+                                                      ],
+                                           "hours":  6,
+                                           "playlist":  "",
+                                           "notes":  "",
+                                           "pyqs":  ""
+                                       }
+                                   ],
+                         "pyqs":  {
+                                      "sessional":  "",
+                                      "semester":  ""
+                                  },
+                         "syllabus":  "https://drive.google.com/file/d/1lkvYBaZFkTaTqRJ3QNkvL1hnaUMIiWsm/view?usp=sharing",
+                         "syllabusPdf":  "https://drive.google.com/file/d/1lkvYBaZFkTaTqRJ3QNkvL1hnaUMIiWsm/view?usp=sharing"
+                     }
+                 ]
 }
