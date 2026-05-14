@@ -11,5 +11,7 @@ export default [
     route("branch/:branch/year/:year", "routes/year.tsx"),
     route("subject/:subjectId", "routes/subject.tsx"),
   ]),
+  route("admin/login", "routes/admin-login.tsx"),
+  route("admin", "routes/admin.tsx"),
   ...devRoutes,
 ] satisfies RouteConfig;

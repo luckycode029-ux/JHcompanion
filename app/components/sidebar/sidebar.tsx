@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { Home, Bookmark, Search, BookOpen, Sun, Moon } from "lucide-react";
+import { Home, Bookmark, Search, BookOpen, Sun, Moon, Shield } from "lucide-react";
 import { useColorScheme } from "@dazl/color-scheme/react";
 import styles from "./sidebar.module.css";
 
@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/search", icon: Search, label: "Search" },
   { to: "/bookmarks", icon: Bookmark, label: "Bookmarks" },
+  { to: "/admin", icon: Shield, label: "Admin" },
 ];
 
 export function Sidebar() {

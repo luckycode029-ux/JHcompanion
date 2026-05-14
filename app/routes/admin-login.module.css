@@ -1,0 +1,75 @@
+.page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: min(480px, 100%);
+  border: 1px solid var(--border-soft);
+  background: var(--surface-elevated);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  margin: 6px 0 14px;
+  color: var(--text-muted);
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.input {
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  background: var(--surface-card);
+  color: var(--text-primary);
+  padding: 10px 12px;
+}
+
+.button {
+  border: none;
+  border-radius: 10px;
+  background: var(--accent-primary);
+  color: white;
+  padding: 10px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.status {
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 0.92rem;
+}
+
+.ok {
+  background: color-mix(in srgb, var(--accent-success) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-success) 35%, transparent);
+}
+
+.error {
+  background: color-mix(in srgb, var(--accent-danger) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-danger) 35%, transparent);
+}
+
+.feedback {
+  color: var(--accent-danger);
+  margin: 0;
+}
