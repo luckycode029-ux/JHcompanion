@@ -1,19 +1,27 @@
+import { useLoaderData } from "react-router";
 import { getBranches } from "~/utils/data";
+import { getCmsSubjects } from "~/utils/cms-data.server";
 import { BranchCard } from "~/components/branch-card/branch-card";
 import { SearchBar } from "~/components/search-bar/search-bar";
 import { useSearch } from "~/hooks/use-search";
 import { SubjectCard } from "~/components/subject-card/subject-card";
 import { useBookmarks } from "~/hooks/use-bookmarks";
 import { BookOpen, GraduationCap } from "lucide-react";
+import type { Route } from "./+types/home";
 import styles from "./home.module.css";
 
 export function meta() {
   return [{ title: "Hamdard BTech Companion" }];
 }
 
+export async function loader({}: Route.LoaderArgs) {
+  return { subjects: await getCmsSubjects() };
+}
+
 export default function Home() {
+  const { subjects } = useLoaderData<typeof loader>();
   const branches = getBranches();
-  const { query, setQuery, results, hasQuery } = useSearch();
+  const { query, setQuery, results, hasQuery } = useSearch(subjects);
   const { isBookmarked, toggleBookmark } = useBookmarks();
 
   return (

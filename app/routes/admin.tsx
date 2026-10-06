@@ -1,4 +1,5 @@
 import { Form, redirect, useActionData, useLoaderData, useNavigation } from "react-router";
+import { PDFDocument } from "pdf-lib";
 import type { Route } from "./+types/admin";
 import styles from "./admin.module.css";
 import { clearAdminCookie, isAdminAuthenticated } from "~/utils/admin-session.server";
@@ -92,6 +93,22 @@ export async function action({ request }: Route.ActionArgs) {
       return { ok: true, message: "Subject added." };
     }
 
+    if (intent === "update-subject") {
+      const subjectId = String(formData.get("subject_id") ?? "");
+      const payload = {
+        subject_name: String(formData.get("subject_name") ?? ""),
+        subject_code: String(formData.get("subject_code") ?? ""),
+        branch: String(formData.get("branch") ?? ""),
+        year: Number(formData.get("year") ?? 1),
+        semester: Number(formData.get("semester") ?? 1),
+        icon: String(formData.get("icon") ?? "") || null,
+      };
+
+      const { error } = await supabase.from("subjects").update(payload).eq("id", subjectId);
+      if (error) throw error;
+      return { ok: true, message: "Subject updated." };
+    }
+
     if (intent === "upload-resource") {
       const category = String(formData.get("category") ?? "") as ResourceCategory;
       if (!RESOURCE_CATEGORIES.includes(category)) throw new Error("Invalid resource category.");
@@ -138,6 +155,59 @@ export async function action({ request }: Route.ActionArgs) {
       if (insertError) throw insertError;
 
       return { ok: true, message: "PDF uploaded and resource saved." };
+    }
+
+    if (intent === "replace-resource-pdf" || intent === "append-resource-pdf") {
+      const resourceId = String(formData.get("resource_id") ?? "");
+      const file = ensurePdf(formData.get("pdf") as File | null);
+      const { data: resource, error } = await supabase
+        .from("resources")
+        .select("id,resource_url")
+        .eq("id", resourceId)
+        .single();
+      if (error || !resource) throw new Error("Resource not found.");
+
+      const storageRef = parseStorageRef(resource.resource_url);
+      if (!storageRef) {
+        throw new Error("This PDF is not stored in Supabase storage, so it cannot be edited in-place.");
+      }
+
+      let bytes = await file.arrayBuffer();
+      if (intent === "append-resource-pdf") {
+        const { data: existingBlob, error: downloadError } = await supabase.storage
+          .from(storageRef.bucket)
+          .download(storageRef.path);
+        if (downloadError || !existingBlob) throw new Error("Could not download existing PDF for merging.");
+
+        const [existingPdf, addedPdf] = await Promise.all([
+          PDFDocument.load(await existingBlob.arrayBuffer()),
+          PDFDocument.load(bytes),
+        ]);
+        const copiedPages = await existingPdf.copyPages(addedPdf, addedPdf.getPageIndices());
+        copiedPages.forEach((page) => existingPdf.addPage(page));
+        const mergedBytes = await existingPdf.save();
+        bytes = mergedBytes.buffer.slice(
+          mergedBytes.byteOffset,
+          mergedBytes.byteOffset + mergedBytes.byteLength
+        ) as ArrayBuffer;
+      }
+
+      const { error: uploadError } = await supabase.storage.from(storageRef.bucket).upload(storageRef.path, bytes, {
+        contentType: "application/pdf",
+        upsert: true,
+      });
+      if (uploadError) throw uploadError;
+
+      const { error: updateError } = await supabase
+        .from("resources")
+        .update({ resource_size: bytes.byteLength })
+        .eq("id", resourceId);
+      if (updateError) throw updateError;
+
+      return {
+        ok: true,
+        message: intent === "append-resource-pdf" ? "Pages appended to PDF." : "PDF replaced.",
+      };
     }
 
     if (intent === "delete-resource") {
@@ -266,6 +336,42 @@ export default function AdminRoute() {
       </section>
 
       <section className={styles.card}>
+        <h2>Manage Subjects</h2>
+        {!subjects.length ? <p className={styles.empty}>No subjects found yet.</p> : null}
+        <div className={styles.subjectList}>
+          {subjects.map((subject) => (
+            <Form method="post" className={styles.subjectItem} key={subject.id}>
+              <input type="hidden" name="intent" value="update-subject" />
+              <input type="hidden" name="subject_id" value={subject.id} />
+              <div className={styles.inlineRow}>
+                <input name="subject_name" defaultValue={subject.subject_name} className={styles.input} required />
+                <input name="subject_code" defaultValue={subject.subject_code} className={styles.input} required />
+              </div>
+              <div className={styles.inlineRow}>
+                <input name="branch" defaultValue={subject.branch} className={styles.input} required />
+                <input name="icon" defaultValue={subject.icon ?? ""} placeholder="Icon (optional)" className={styles.input} />
+              </div>
+              <div className={styles.inlineRow}>
+                <input name="year" type="number" min={1} max={4} defaultValue={subject.year} required className={styles.input} />
+                <input
+                  name="semester"
+                  type="number"
+                  min={1}
+                  max={8}
+                  defaultValue={subject.semester}
+                  required
+                  className={styles.input}
+                />
+              </div>
+              <button type="submit" className={styles.secondaryBtn} disabled={busy}>
+                Save Subject
+              </button>
+            </Form>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.card}>
         <h2>Manage Resources</h2>
         {!resources.length ? <p className={styles.empty}>No resources found yet.</p> : null}
         <div className={styles.resourceList}>
@@ -298,18 +404,38 @@ export default function AdminRoute() {
                 </p>
                 <div className={styles.inlineRow}>
                   <button type="submit" className={styles.secondaryBtn} disabled={busy}>
-                    Save
+                    Save Metadata
                   </button>
                 </div>
               </Form>
 
-              <Form method="post">
-                <input type="hidden" name="intent" value="delete-resource" />
-                <input type="hidden" name="resource_id" value={resource.id} />
-                <button type="submit" className={styles.deleteBtn} disabled={busy}>
-                  Delete
-                </button>
-              </Form>
+              <div className={styles.fileTools}>
+                <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
+                  <input type="hidden" name="intent" value="replace-resource-pdf" />
+                  <input type="hidden" name="resource_id" value={resource.id} />
+                  <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
+                  <button type="submit" className={styles.secondaryBtn} disabled={busy}>
+                    Replace PDF
+                  </button>
+                </Form>
+
+                <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
+                  <input type="hidden" name="intent" value="append-resource-pdf" />
+                  <input type="hidden" name="resource_id" value={resource.id} />
+                  <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
+                  <button type="submit" className={styles.secondaryBtn} disabled={busy}>
+                    Add Pages
+                  </button>
+                </Form>
+
+                <Form method="post">
+                  <input type="hidden" name="intent" value="delete-resource" />
+                  <input type="hidden" name="resource_id" value={resource.id} />
+                  <button type="submit" className={styles.deleteBtn} disabled={busy}>
+                    Delete
+                  </button>
+                </Form>
+              </div>
             </div>
           ))}
         </div>

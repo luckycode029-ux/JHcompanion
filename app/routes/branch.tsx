@@ -1,8 +1,9 @@
-import { useParams, Link } from "react-router";
-import { getBranch, getSubjectsByBranchAndYear } from "~/utils/data";
+import { useLoaderData, useParams, Link } from "react-router";
+import { getBranch } from "~/utils/data";
+import { getCmsSubjects } from "~/utils/cms-data.server";
 import { YearCard } from "~/components/year-card/year-card";
 import { PageHeader } from "~/components/page-header/page-header";
-import { Cpu, Brain, Radio } from "lucide-react";
+import type { Route } from "./+types/branch";
 import styles from "./branch.module.css";
 
 const YEARS = [1, 2, 3, 4];
@@ -12,7 +13,18 @@ export function meta({ params }: { params: Record<string, string> }) {
   return [{ title: branch ? `${branch.name} - Hamdard BTech` : "Branch" }];
 }
 
+export async function loader({ params }: Route.LoaderArgs) {
+  const subjects = await getCmsSubjects();
+  return {
+    counts: YEARS.reduce<Record<number, number>>((acc, year) => {
+      acc[year] = subjects.filter((subject) => subject.branch === params.branch && subject.year === year).length;
+      return acc;
+    }, {}),
+  };
+}
+
 export default function BranchPage() {
+  const { counts } = useLoaderData<typeof loader>();
   const { branch: branchId } = useParams();
   const branch = getBranch(branchId ?? "");
 
@@ -38,7 +50,7 @@ export default function BranchPage() {
         <p className={styles.lead}>Select your year to browse subjects:</p>
         <div className={styles.grid}>
           {YEARS.map((year) => {
-            const count = getSubjectsByBranchAndYear(branch.id, year).length;
+            const count = counts[year] ?? 0;
             return (
               <YearCard key={year} year={year} branch={branch.id} subjectCount={count} />
             );

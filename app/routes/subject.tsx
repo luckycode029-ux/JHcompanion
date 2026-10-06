@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { Bookmark, BookmarkCheck, BookOpen, FileQuestion, ScrollText } from "lucide-react";
 import { PdfModal } from "~/components/pdf-modal/pdf-modal";
 import { PageHeader } from "~/components/page-header/page-header";
@@ -7,6 +7,8 @@ import { ResourceButton } from "~/components/resource-button/resource-button";
 import { UnitCard } from "~/components/unit-card/unit-card";
 import { useBookmarks } from "~/hooks/use-bookmarks";
 import { getBranch, getSubject } from "~/utils/data";
+import { getCmsSubject } from "~/utils/cms-data.server";
+import type { Route } from "./+types/subject";
 import styles from "./subject.module.css";
 
 interface OpenPdfState {
@@ -19,9 +21,12 @@ export function meta({ params }: { params: Record<string, string> }) {
   return [{ title: subject ? `${subject.name} - Hamdard BTech` : "Subject" }];
 }
 
+export async function loader({ params }: Route.LoaderArgs) {
+  return { subject: await getCmsSubject(params.subjectId ?? "") };
+}
+
 export default function SubjectPage() {
-  const { subjectId } = useParams();
-  const subject = getSubject(subjectId ?? "");
+  const { subject } = useLoaderData<typeof loader>();
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const [activePdf, setActivePdf] = useState<OpenPdfState | null>(null);
 

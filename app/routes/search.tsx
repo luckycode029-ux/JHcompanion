@@ -1,16 +1,24 @@
+import { useLoaderData } from "react-router";
 import { useSearch } from "~/hooks/use-search";
 import { useBookmarks } from "~/hooks/use-bookmarks";
 import { SearchBar } from "~/components/search-bar/search-bar";
 import { SubjectCard } from "~/components/subject-card/subject-card";
 import { PageHeader } from "~/components/page-header/page-header";
+import { getCmsSubjects } from "~/utils/cms-data.server";
+import type { Route } from "./+types/search";
 import styles from "./search.module.css";
 
 export function meta() {
   return [{ title: "Search - Hamdard BTech Companion" }];
 }
 
+export async function loader({}: Route.LoaderArgs) {
+  return { subjects: await getCmsSubjects() };
+}
+
 export default function SearchPage() {
-  const { query, setQuery, results, hasQuery } = useSearch();
+  const { subjects } = useLoaderData<typeof loader>();
+  const { query, setQuery, results, hasQuery } = useSearch(subjects);
   const { isBookmarked, toggleBookmark } = useBookmarks();
 
   return (

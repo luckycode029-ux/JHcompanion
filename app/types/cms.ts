@@ -5,6 +5,8 @@ export type CmsSubject = {
   branch: string;
   year: number;
   semester: number;
+  icon?: string | null;
+  created_at?: string;
 };
 
 export type CmsResource = {

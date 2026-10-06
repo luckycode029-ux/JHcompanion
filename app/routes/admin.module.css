@@ -107,17 +107,33 @@ textarea.input {
   border: 1px solid color-mix(in srgb, var(--accent-danger) 35%, transparent);
 }
 
-.resourceList {
+.resourceList,
+.subjectList {
   display: grid;
   gap: 12px;
 }
 
-.resourceItem {
+.resourceItem,
+.subjectItem {
   border: 1px solid var(--border-soft);
   border-radius: 12px;
   padding: 12px;
   display: grid;
   gap: 10px;
+}
+
+.fileTools {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.fileTool {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
 }
 
 .checkboxLabel {
@@ -144,6 +160,10 @@ textarea.input {
   }
 
   .inlineRow {
+    grid-template-columns: 1fr;
+  }
+
+  .fileTool {
     grid-template-columns: 1fr;
   }
 }

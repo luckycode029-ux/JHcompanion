@@ -1,8 +1,10 @@
-import { useParams, Link } from "react-router";
-import { getBranch, getSubjectsByBranchAndYear } from "~/utils/data";
+import { useLoaderData, useParams, Link } from "react-router";
+import { getBranch } from "~/utils/data";
+import { getCmsSubjectsByBranchAndYear } from "~/utils/cms-data.server";
 import { SubjectCard } from "~/components/subject-card/subject-card";
 import { PageHeader } from "~/components/page-header/page-header";
 import { useBookmarks } from "~/hooks/use-bookmarks";
+import type { Route } from "./+types/year";
 import styles from "./year.module.css";
 
 const YEAR_LABELS: Record<number, string> = {
@@ -17,11 +19,16 @@ export function meta({ params }: { params: Record<string, string> }) {
   return [{ title: `Year ${params.year} | ${branch?.name ?? ""} - Hamdard BTech` }];
 }
 
+export async function loader({ params }: Route.LoaderArgs) {
+  const year = parseInt(params.year ?? "1", 10);
+  return { subjects: await getCmsSubjectsByBranchAndYear(params.branch ?? "", year) };
+}
+
 export default function YearPage() {
+  const { subjects } = useLoaderData<typeof loader>();
   const { branch: branchId, year: yearStr } = useParams();
   const branch = getBranch(branchId ?? "");
   const year = parseInt(yearStr ?? "1", 10);
-  const subjects = getSubjectsByBranchAndYear(branchId ?? "", year);
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const subjectsBySemester = subjects.reduce<Record<number, typeof subjects>>((acc, subject) => {
     if (!acc[subject.semester]) {
