@@ -4,11 +4,11 @@ const COOKIE_NAME = "hb_admin_session";
 const MAX_AGE = 60 * 60 * 12;
 
 function getAdminPassword() {
-  return process.env.ADMIN_PORTAL_PASSWORD ?? "";
+  return (process.env.ADMIN_PORTAL_PASSWORD ?? "").trim();
 }
 
 function getSessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || getAdminPassword();
+  return (process.env.ADMIN_SESSION_SECRET ?? "").trim() || getAdminPassword();
 }
 
 function sign(value: string) {
@@ -38,7 +38,11 @@ function verifyToken(token: string) {
 export function isAdminPasswordValid(password: string) {
   const expected = getAdminPassword();
   if (!expected) return false;
-  return password === expected;
+  return password.trim() === expected;
+}
+
+export function isAdminPasswordConfigured() {
+  return Boolean(getAdminPassword());
 }
 
 export function createAdminCookie() {

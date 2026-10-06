@@ -1,17 +1,23 @@
 import { createClient } from "@supabase/supabase-js";
 
-function getEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required env var: ${name}`);
+function readEnv(...names: string[]): string {
+  for (const name of names) {
+    const value = process.env[name]?.trim();
+    if (value) return value;
   }
-  return value;
+  return "";
 }
 
 export function getSupabasePublicEnv() {
   return {
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "",
+    url: readEnv("NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_URL", "VITE_SUPABASE_URL"),
+    anonKey: readEnv(
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "SUPABASE_ANON_KEY",
+      "SUPABASE_PUBLISHABLE_KEY",
+      "VITE_SUPABASE_ANON_KEY"
+    ),
   };
 }
 
@@ -30,8 +36,10 @@ export function createSupabaseAnonClient() {
 }
 
 export function createSupabaseServiceClient() {
-  const url = getEnv("NEXT_PUBLIC_SUPABASE_URL");
-  const serviceRole = getEnv("SUPABASE_SERVICE_ROLE_KEY");
+  const url = readEnv("NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_URL", "VITE_SUPABASE_URL");
+  const serviceRole = readEnv("SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_SERVICE_KEY", "SERVICE_ROLE_KEY");
+  if (!url) throw new Error("Missing required env var: NEXT_PUBLIC_SUPABASE_URL");
+  if (!serviceRole) throw new Error("Missing required env var: SUPABASE_SERVICE_ROLE_KEY");
 
   return createClient(url, serviceRole, {
     auth: {

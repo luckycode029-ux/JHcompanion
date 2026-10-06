@@ -1,6 +1,11 @@
 import { Form, redirect, useActionData, useLoaderData } from "react-router";
 import type { Route } from "./+types/admin-login";
-import { createAdminCookie, isAdminAuthenticated, isAdminPasswordValid } from "~/utils/admin-session.server";
+import {
+  createAdminCookie,
+  isAdminAuthenticated,
+  isAdminPasswordConfigured,
+  isAdminPasswordValid,
+} from "~/utils/admin-session.server";
 import { checkSupabaseConnection } from "~/utils/supabase.server";
 import styles from "./admin-login.module.css";
 
@@ -10,7 +15,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   }
 
   const supabaseStatus = await checkSupabaseConnection();
-  return { supabaseStatus };
+  return { supabaseStatus, adminPasswordConfigured: isAdminPasswordConfigured() };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -29,7 +34,7 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function AdminLoginRoute() {
-  const { supabaseStatus } = useLoaderData<typeof loader>();
+  const { supabaseStatus, adminPasswordConfigured } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
 
   return (
@@ -40,6 +45,9 @@ export default function AdminLoginRoute() {
 
         <div className={[styles.status, supabaseStatus.ok ? styles.ok : styles.error].join(" ")}>
           {supabaseStatus.message}
+        </div>
+        <div className={[styles.status, adminPasswordConfigured ? styles.ok : styles.error].join(" ")}>
+          {adminPasswordConfigured ? "Admin password is configured." : "Missing ADMIN_PORTAL_PASSWORD in .env"}
         </div>
 
         <Form method="post" className={styles.form}>
