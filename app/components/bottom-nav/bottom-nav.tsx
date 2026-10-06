@@ -7,11 +7,12 @@ const NAV_ITEMS = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/search", icon: Search, label: "Search" },
   { to: "/bookmarks", icon: Bookmark, label: "Saved" },
+  { to: "/admin", icon: Shield, label: "Admin" },
 ];
 
 export function BottomNav() {
   const isAdmin = useIsAdmin();
-  const navItems = isAdmin ? [...NAV_ITEMS, { to: "/admin/manage", icon: Shield, label: "Manage" }] : NAV_ITEMS;
+  const navItems = isAdmin ? [...NAV_ITEMS.filter((item) => item.to !== "/admin"), { to: "/admin/manage", icon: Shield, label: "Manage" }] : NAV_ITEMS;
 
   return (
     <nav className={styles.bottomNav}>

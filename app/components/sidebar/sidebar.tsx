@@ -8,13 +8,14 @@ const NAV_ITEMS = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/search", icon: Search, label: "Search" },
   { to: "/bookmarks", icon: Bookmark, label: "Bookmarks" },
+  { to: "/admin", icon: Shield, label: "Admin" },
 ];
 
 export function Sidebar() {
   const { setColorScheme, resolvedScheme } = useColorScheme();
   const isAdmin = useIsAdmin();
   const toggle = () => setColorScheme(resolvedScheme === "dark" ? "light" : "dark");
-  const navItems = isAdmin ? [...NAV_ITEMS, { to: "/admin/manage", icon: Shield, label: "Manage" }] : NAV_ITEMS;
+  const navItems = isAdmin ? [...NAV_ITEMS.filter((item) => item.to !== "/admin"), { to: "/admin/manage", icon: Shield, label: "Manage" }] : NAV_ITEMS;
 
   return (
     <aside className={styles.sidebar}>
