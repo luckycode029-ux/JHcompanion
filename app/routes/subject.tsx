@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router";
-import { Bookmark, BookmarkCheck, BookOpen, FileQuestion, ScrollText } from "lucide-react";
+import { Bookmark, BookmarkCheck, BookOpen, FileQuestion, Pencil, ScrollText } from "lucide-react";
 import { PdfModal } from "~/components/pdf-modal/pdf-modal";
 import { PageHeader } from "~/components/page-header/page-header";
 import { ResourceButton } from "~/components/resource-button/resource-button";
@@ -8,12 +8,21 @@ import { UnitCard } from "~/components/unit-card/unit-card";
 import { useBookmarks } from "~/hooks/use-bookmarks";
 import { getBranch, getSubject } from "~/utils/data";
 import { getCmsSubject } from "~/utils/cms-data.server";
+import { useIsAdmin } from "~/utils/admin-context";
+import { AdminResourceEditor } from "~/components/admin-resource-editor/admin-resource-editor";
+import type { ResourceCategory } from "~/types/cms";
 import type { Route } from "./+types/subject";
 import styles from "./subject.module.css";
 
 interface OpenPdfState {
   title: string;
   driveUrl: string;
+}
+
+interface ResourceEditTarget {
+  category: ResourceCategory;
+  title: string;
+  unitNumber?: number;
 }
 
 export function meta({ params }: { params: Record<string, string> }) {
@@ -28,7 +37,9 @@ export async function loader({ params }: Route.LoaderArgs) {
 export default function SubjectPage() {
   const { subject } = useLoaderData<typeof loader>();
   const { isBookmarked, toggleBookmark } = useBookmarks();
+  const isAdmin = useIsAdmin();
   const [activePdf, setActivePdf] = useState<OpenPdfState | null>(null);
+  const [resourceEditor, setResourceEditor] = useState<ResourceEditTarget | null>(null);
 
   if (!subject) {
     return (
@@ -79,6 +90,12 @@ export default function SubjectPage() {
           {bookmarked ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
           <span>{bookmarked ? "Bookmarked" : "Bookmark"}</span>
         </button>
+        {isAdmin ? (
+          <button type="button" className={styles.editBtn} onClick={() => setResourceEditor({ category: "syllabus", title: `${subject.name} Syllabus` })}>
+            <Pencil size={16} />
+            <span>Edit syllabus</span>
+          </button>
+        ) : null}
       </div>
 
       <div className={styles.content}>
@@ -93,6 +110,7 @@ export default function SubjectPage() {
                 key={unit.number}
                 unit={unit}
                 onOpenPdf={(title, driveUrl) => openPdf(title, driveUrl)}
+                onEditResource={isAdmin ? (category, title, unitNumber) => setResourceEditor({ category, title, unitNumber }) : undefined}
               />
             ))}
           </div>
@@ -114,6 +132,7 @@ export default function SubjectPage() {
                 onClick={() => openPdf(`${subject.name} Sessional PYQs`, sessionalPyqs)}
                 disabled={!sessionalPyqs.trim()}
               />
+              {isAdmin ? <button type="button" className={styles.resourceEditBtn} onClick={() => setResourceEditor({ category: "sessional_pyq", title: `${subject.name} Sessional PYQs` })}><Pencil size={15} /> Edit</button> : null}
             </div>
             <div className={styles.pyqCard}>
               <div className={styles.pyqLabel}>End Semester PYQs</div>
@@ -125,12 +144,14 @@ export default function SubjectPage() {
                 onClick={() => openPdf(`${subject.name} Semester PYQs`, semesterPyqs)}
                 disabled={!semesterPyqs.trim()}
               />
+              {isAdmin ? <button type="button" className={styles.resourceEditBtn} onClick={() => setResourceEditor({ category: "semester_pyq", title: `${subject.name} Semester PYQs` })}><Pencil size={15} /> Edit</button> : null}
             </div>
           </div>
         </section>
       </div>
 
       {activePdf && <PdfModal title={activePdf.title} driveUrl={activePdf.driveUrl} onClose={() => setActivePdf(null)} />}
+      {resourceEditor ? <AdminResourceEditor subject={subject} {...resourceEditor} onClose={() => setResourceEditor(null)} /> : null}
     </div>
   );
 }

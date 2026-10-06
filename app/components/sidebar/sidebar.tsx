@@ -1,18 +1,20 @@
 import { NavLink } from "react-router";
 import { Home, Bookmark, Search, BookOpen, Sun, Moon, Shield } from "lucide-react";
 import { useColorScheme } from "@dazl/color-scheme/react";
+import { useIsAdmin } from "~/utils/admin-context";
 import styles from "./sidebar.module.css";
 
 const NAV_ITEMS = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/search", icon: Search, label: "Search" },
   { to: "/bookmarks", icon: Bookmark, label: "Bookmarks" },
-  { to: "/admin", icon: Shield, label: "Admin" },
 ];
 
 export function Sidebar() {
   const { setColorScheme, resolvedScheme } = useColorScheme();
+  const isAdmin = useIsAdmin();
   const toggle = () => setColorScheme(resolvedScheme === "dark" ? "light" : "dark");
+  const navItems = isAdmin ? [...NAV_ITEMS, { to: "/admin/manage", icon: Shield, label: "Manage" }] : NAV_ITEMS;
 
   return (
     <aside className={styles.sidebar}>
@@ -25,7 +27,7 @@ export function Sidebar() {
       </div>
 
       <nav className={styles.nav}>
-        {NAV_ITEMS.map(({ to, icon: Icon, label }) => (
+        {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
             to={to}

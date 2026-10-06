@@ -1,7 +1,10 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { loadServerEnv } from "./env.server";
 
 const COOKIE_NAME = "hb_admin_session";
 const MAX_AGE = 60 * 60 * 12;
+
+loadServerEnv();
 
 function getAdminPassword() {
   return (process.env.ADMIN_PORTAL_PASSWORD ?? "").trim();

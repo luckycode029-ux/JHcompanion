@@ -1,9 +1,11 @@
 import { Form, redirect, useActionData, useLoaderData, useNavigation } from "react-router";
+import { ExternalLink, FileText, Folder, Layers, LogOut, Pencil, Plus, Save, Trash2, Upload } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 import type { Route } from "./+types/admin";
 import styles from "./admin.module.css";
 import { clearAdminCookie, isAdminAuthenticated } from "~/utils/admin-session.server";
 import { createSupabaseServiceClient } from "~/utils/supabase.server";
+import { getBranch } from "~/utils/data";
 import type { CmsResource, CmsSubject, ResourceCategory } from "~/types/cms";
 import { RESOURCE_CATEGORIES } from "~/types/cms";
 
@@ -39,6 +41,74 @@ function getBucketForCategory(category: ResourceCategory) {
   return "notes";
 }
 
+const CATEGORY_LABELS: Record<ResourceCategory, string> = {
+  syllabus: "Syllabus",
+  unit_notes: "Unit notes",
+  sessional_pyq: "Sessional PYQ",
+  semester_pyq: "Semester PYQ",
+  important_questions: "Important questions",
+  playlist: "Playlist",
+  premium_notes: "Premium notes",
+  premium_questions: "Premium questions",
+};
+
+type SubjectGroup = {
+  branch: string;
+  branchName: string;
+  years: {
+    year: number;
+    semesters: {
+      semester: number;
+      subjects: CmsSubject[];
+    }[];
+  }[];
+};
+
+function groupSubjects(subjects: CmsSubject[]): SubjectGroup[] {
+  const branchMap = new Map<string, Map<number, Map<number, CmsSubject[]>>>();
+
+  for (const subject of subjects) {
+    if (!branchMap.has(subject.branch)) branchMap.set(subject.branch, new Map());
+    const yearMap = branchMap.get(subject.branch)!;
+    if (!yearMap.has(subject.year)) yearMap.set(subject.year, new Map());
+    const semesterMap = yearMap.get(subject.year)!;
+    if (!semesterMap.has(subject.semester)) semesterMap.set(subject.semester, []);
+    semesterMap.get(subject.semester)!.push(subject);
+  }
+
+  return [...branchMap.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([branch, yearMap]) => ({
+      branch,
+      branchName: getBranch(branch)?.name ?? branch,
+      years: [...yearMap.entries()]
+        .sort(([a], [b]) => a - b)
+        .map(([year, semesterMap]) => ({
+          year,
+          semesters: [...semesterMap.entries()]
+            .sort(([a], [b]) => a - b)
+            .map(([semester, semesterSubjects]) => ({
+              semester,
+              subjects: semesterSubjects.sort((a, b) => a.subject_name.localeCompare(b.subject_name)),
+            })),
+        })),
+    }));
+}
+
+function groupResourcesBySubject(resources: CmsResource[]) {
+  return resources.reduce<Record<string, CmsResource[]>>((acc, resource) => {
+    acc[resource.subject_id] = acc[resource.subject_id] ?? [];
+    acc[resource.subject_id].push(resource);
+    return acc;
+  }, {});
+}
+
+function formatBytes(bytes: number | null) {
+  if (!bytes) return "Size unknown";
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 export async function loader({ request }: Route.LoaderArgs) {
   if (!isAdminAuthenticated(request)) {
     throw redirect("/admin/login");
@@ -47,12 +117,11 @@ export async function loader({ request }: Route.LoaderArgs) {
   const supabase = createSupabaseServiceClient();
 
   const [{ data: subjects, error: subjectError }, { data: resources, error: resourceError }] = await Promise.all([
-    supabase.from("subjects").select("*").order("subject_name"),
+    supabase.from("subjects").select("*").order("branch").order("year").order("semester").order("subject_name"),
     supabase
       .from("resources")
       .select("*, subjects(subject_name, subject_code, branch, semester)")
-      .order("created_at", { ascending: false })
-      .limit(100),
+      .order("created_at", { ascending: false }),
   ]);
 
   if (subjectError) throw new Error(subjectError.message);
@@ -61,6 +130,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   return {
     subjects: (subjects ?? []) as CmsSubject[],
     resources: (resources ?? []) as CmsResource[],
+    selectedSubjectId: new URL(request.url).searchParams.get("subjectId"),
   };
 }
 
@@ -79,13 +149,14 @@ export async function action({ request }: Route.ActionArgs) {
     }
 
     if (intent === "create-subject") {
+      const icon = formData.get("icon");
       const payload = {
         subject_name: String(formData.get("subject_name") ?? ""),
         subject_code: String(formData.get("subject_code") ?? ""),
         branch: String(formData.get("branch") ?? ""),
         year: Number(formData.get("year") ?? 1),
         semester: Number(formData.get("semester") ?? 1),
-        icon: String(formData.get("icon") ?? "") || null,
+        ...(icon === null ? {} : { icon: String(icon) || null }),
       };
 
       const { error } = await supabase.from("subjects").insert(payload);
@@ -95,13 +166,14 @@ export async function action({ request }: Route.ActionArgs) {
 
     if (intent === "update-subject") {
       const subjectId = String(formData.get("subject_id") ?? "");
+      const icon = formData.get("icon");
       const payload = {
         subject_name: String(formData.get("subject_name") ?? ""),
         subject_code: String(formData.get("subject_code") ?? ""),
         branch: String(formData.get("branch") ?? ""),
         year: Number(formData.get("year") ?? 1),
         semester: Number(formData.get("semester") ?? 1),
-        icon: String(formData.get("icon") ?? "") || null,
+        ...(icon === null ? {} : { icon: String(icon) || null }),
       };
 
       const { error } = await supabase.from("subjects").update(payload).eq("id", subjectId);
@@ -115,6 +187,37 @@ export async function action({ request }: Route.ActionArgs) {
 
       const subjectId = String(formData.get("subject_id") ?? "");
       const title = String(formData.get("title") ?? "");
+      const resourceUrl = String(formData.get("resource_url") ?? "").trim();
+
+      if (resourceUrl) {
+        let parsedUrl: URL;
+        try {
+          parsedUrl = new URL(resourceUrl);
+        } catch {
+          throw new Error("Enter a valid resource link.");
+        }
+        if (parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:") {
+          throw new Error("Resource links must use http or https.");
+        }
+
+        const { error: insertError } = await supabase.from("resources").insert({
+          subject_id: subjectId,
+          title,
+          description: String(formData.get("description") ?? "") || null,
+          category,
+          unit_number: formData.get("unit_number") ? Number(formData.get("unit_number")) : null,
+          resource_url: resourceUrl,
+          resource_size: null,
+          resource_type: "link",
+          exam_year: formData.get("exam_year") ? Number(formData.get("exam_year")) : null,
+          exam_type: String(formData.get("exam_type") ?? "") || null,
+          is_premium: formData.get("is_premium") === "on",
+          uploaded_by: "admin",
+        });
+        if (insertError) throw insertError;
+        return { ok: true, message: "Resource link saved." };
+      }
+
       const file = ensurePdf(formData.get("pdf") as File | null);
 
       const { data: subject, error: subjectError } = await supabase
@@ -258,18 +361,25 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function AdminRoute() {
-  const { subjects, resources } = useLoaderData<typeof loader>();
+  const { subjects, resources, selectedSubjectId } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const navigation = useNavigation();
   const busy = navigation.state !== "idle";
+  const subjectGroups = groupSubjects(subjects);
+  const resourcesBySubject = groupResourcesBySubject(resources);
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Admin Portal</h1>
-        <Form method="post">
+        <div>
+          <p className={styles.eyebrow}>Content manager</p>
+          <h1 className={styles.title}>Admin Library</h1>
+          <p className={styles.subtitle}>Browse the same structure students see, then edit subjects and PDFs in place.</p>
+        </div>
+        <Form method="post" className={styles.logoutForm}>
           <input type="hidden" name="intent" value="logout" />
           <button className={styles.logoutBtn} type="submit">
+            <LogOut size={16} />
             Logout
           </button>
         </Form>
@@ -279,167 +389,313 @@ export default function AdminRoute() {
         <p className={[styles.message, actionData.ok ? styles.messageOk : styles.messageError].join(" ")}>{actionData.message}</p>
       ) : null}
 
-      <section className={styles.grid}>
-        <div className={styles.card}>
-          <h2>Upload Resource PDF</h2>
-          <Form method="post" encType="multipart/form-data" className={styles.form}>
-            <input type="hidden" name="intent" value="upload-resource" />
-            <input name="title" placeholder="Title" required className={styles.input} />
-            <select name="subject_id" required className={styles.input}>
-              <option value="">Select Subject</option>
-              {subjects.map((subject) => (
-                <option value={subject.id} key={subject.id}>
-                  {subject.subject_name} ({subject.subject_code})
-                </option>
-              ))}
-            </select>
-            <select name="category" required className={styles.input}>
-              {RESOURCE_CATEGORIES.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-            <div className={styles.inlineRow}>
-              <input name="unit_number" type="number" min={1} placeholder="Unit" className={styles.input} />
-              <input name="exam_year" type="number" min={2000} max={2100} placeholder="Exam Year" className={styles.input} />
+      <div className={styles.workspace}>
+        <main className={styles.explorer} aria-label="Library content">
+          <div className={styles.toolbar}>
+            <div>
+              <h2 className={styles.panelTitle}>Library Explorer</h2>
+              <p className={styles.panelHint}>{subjects.length} subjects - {resources.length} resources</p>
             </div>
-            <input name="exam_type" placeholder="Exam Type (optional)" className={styles.input} />
-            <textarea name="description" placeholder="Description (optional)" className={styles.input} />
-            <label className={styles.checkboxLabel}>
-              <input type="checkbox" name="is_premium" /> Mark as premium
-            </label>
-            <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
-            <button type="submit" className={styles.primaryBtn} disabled={busy}>
-              {busy ? "Uploading..." : "Upload PDF"}
-            </button>
-          </Form>
-        </div>
+          </div>
 
-        <div className={styles.card}>
-          <h2>Add Subject</h2>
-          <Form method="post" className={styles.form}>
-            <input type="hidden" name="intent" value="create-subject" />
-            <input name="subject_name" placeholder="Subject Name" required className={styles.input} />
-            <input name="subject_code" placeholder="Subject Code" required className={styles.input} />
-            <input name="branch" placeholder="Branch (e.g., cse-ai)" required className={styles.input} />
-            <div className={styles.inlineRow}>
-              <input name="year" type="number" min={1} max={4} placeholder="Year" required className={styles.input} />
-              <input name="semester" type="number" min={1} max={8} placeholder="Semester" required className={styles.input} />
+          {!subjects.length ? <p className={styles.empty}>No subjects found yet. Add the first subject from the right panel.</p> : null}
+
+          <div className={styles.folderList}>
+            {subjectGroups.map((branchGroup) => (
+              <details className={styles.branchFolder} key={branchGroup.branch} open>
+                <summary className={styles.branchSummary}>
+                  <Folder size={18} />
+                  <span>{branchGroup.branchName}</span>
+                  <small>{branchGroup.branch}</small>
+                </summary>
+
+                <div className={styles.yearList}>
+                  {branchGroup.years.map((yearGroup) => (
+                    <details className={styles.yearFolder} key={`${branchGroup.branch}-${yearGroup.year}`} open>
+                      <summary className={styles.yearSummary}>
+                        <Layers size={16} />
+                        <span>Year {yearGroup.year}</span>
+                      </summary>
+
+                      {yearGroup.semesters.map((semesterGroup) => (
+                        <section className={styles.semesterBlock} key={`${branchGroup.branch}-${yearGroup.year}-${semesterGroup.semester}`}>
+                          <div className={styles.semesterHeader}>
+                            <h3>Semester {semesterGroup.semester}</h3>
+                            <span>{semesterGroup.subjects.length} subjects</span>
+                          </div>
+
+                          <div className={styles.subjectList}>
+                            {semesterGroup.subjects.map((subject) => {
+                              const subjectResources = resourcesBySubject[subject.id] ?? [];
+
+                              return (
+                                <article className={styles.subjectItem} key={subject.id}>
+                                  <div className={styles.subjectTop}>
+                                    <div className={styles.subjectIdentity}>
+                                      <div className={styles.subjectIcon}>{subject.icon || subject.subject_code.slice(0, 2)}</div>
+                                      <div>
+                                        <h4>{subject.subject_name}</h4>
+                                        <p>{subject.subject_code} - {subjectResources.length} resources</p>
+                                      </div>
+                                    </div>
+                                    <details className={styles.editBox} open={subject.id === selectedSubjectId}>
+                                      <summary className={styles.editSummary}>
+                                        <Pencil size={15} />
+                                        Edit subject
+                                      </summary>
+                                      <Form method="post" className={styles.form}>
+                                        <input type="hidden" name="intent" value="update-subject" />
+                                        <input type="hidden" name="subject_id" value={subject.id} />
+                                        <div className={styles.inlineRow}>
+                                          <label className={styles.field}>
+                                            <span>Subject name</span>
+                                            <input name="subject_name" defaultValue={subject.subject_name} className={styles.input} required />
+                                          </label>
+                                          <label className={styles.field}>
+                                            <span>Code</span>
+                                            <input name="subject_code" defaultValue={subject.subject_code} className={styles.input} required />
+                                          </label>
+                                        </div>
+                                        <div className={styles.inlineRow}>
+                                          <label className={styles.field}>
+                                            <span>Branch</span>
+                                            <input name="branch" defaultValue={subject.branch} className={styles.input} required />
+                                          </label>
+                                          <label className={styles.field}>
+                                            <span>Icon</span>
+                                            <input name="icon" defaultValue={subject.icon ?? ""} placeholder="Optional" className={styles.input} />
+                                          </label>
+                                        </div>
+                                        <div className={styles.inlineRow}>
+                                          <label className={styles.field}>
+                                            <span>Year</span>
+                                            <input name="year" type="number" min={1} max={4} defaultValue={subject.year} required className={styles.input} />
+                                          </label>
+                                          <label className={styles.field}>
+                                            <span>Semester</span>
+                                            <input name="semester" type="number" min={1} max={8} defaultValue={subject.semester} required className={styles.input} />
+                                          </label>
+                                        </div>
+                                        <button type="submit" className={styles.primaryBtn} disabled={busy}>
+                                          <Save size={15} />
+                                          Save subject
+                                        </button>
+                                      </Form>
+                                    </details>
+                                  </div>
+
+                                  <details className={styles.uploadBox}>
+                                    <summary className={styles.uploadSummary}>
+                                      <Upload size={15} />
+                                      Upload PDF to this subject
+                                    </summary>
+                                    <Form method="post" encType="multipart/form-data" className={styles.form}>
+                                      <input type="hidden" name="intent" value="upload-resource" />
+                                      <input type="hidden" name="subject_id" value={subject.id} />
+                                      <label className={styles.field}>
+                                        <span>Title</span>
+                                        <input name="title" placeholder="Example: Unit 1 notes" required className={styles.input} />
+                                      </label>
+                                      <div className={styles.inlineRow}>
+                                        <label className={styles.field}>
+                                          <span>Category</span>
+                                          <select name="category" required className={styles.input}>
+                                            {RESOURCE_CATEGORIES.map((category) => (
+                                              <option key={category} value={category}>
+                                                {CATEGORY_LABELS[category]}
+                                              </option>
+                                            ))}
+                                          </select>
+                                        </label>
+                                        <label className={styles.field}>
+                                          <span>Unit</span>
+                                          <input name="unit_number" type="number" min={1} placeholder="Optional" className={styles.input} />
+                                        </label>
+                                      </div>
+                                      <div className={styles.inlineRow}>
+                                        <label className={styles.field}>
+                                          <span>Exam year</span>
+                                          <input name="exam_year" type="number" min={2000} max={2100} placeholder="Optional" className={styles.input} />
+                                        </label>
+                                        <label className={styles.field}>
+                                          <span>Exam type</span>
+                                          <input name="exam_type" placeholder="Optional" className={styles.input} />
+                                        </label>
+                                      </div>
+                                      <label className={styles.field}>
+                                        <span>Description</span>
+                                        <textarea name="description" placeholder="Optional" className={styles.input} />
+                                      </label>
+                                      <label className={styles.checkboxLabel}>
+                                        <input type="checkbox" name="is_premium" /> Premium resource
+                                      </label>
+                                      <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
+                                      <button type="submit" className={styles.primaryBtn} disabled={busy}>
+                                        <Upload size={15} />
+                                        {busy ? "Uploading..." : "Upload PDF"}
+                                      </button>
+                                    </Form>
+                                  </details>
+
+                                  <div className={styles.resourceList}>
+                                    {subjectResources.length ? (
+                                      subjectResources.map((resource) => (
+                                        <details key={resource.id} className={styles.resourceItem}>
+                                          <summary className={styles.resourceSummary}>
+                                            <FileText size={16} />
+                                            <span>{resource.title}</span>
+                                            <small>{CATEGORY_LABELS[resource.category as ResourceCategory] ?? resource.category}</small>
+                                          </summary>
+
+                                          <div className={styles.resourceBody}>
+                                            <div className={styles.resourceMeta}>
+                                              <span>{formatBytes(resource.resource_size)}</span>
+                                              {resource.unit_number ? <span>Unit {resource.unit_number}</span> : null}
+                                              {resource.exam_year ? <span>{resource.exam_year}</span> : null}
+                                              {resource.is_premium ? <span>Premium</span> : null}
+                                              <a href={resource.resource_url} target="_blank" rel="noreferrer">
+                                                <ExternalLink size={14} />
+                                                Open PDF
+                                              </a>
+                                            </div>
+
+                                            <Form method="post" className={styles.form}>
+                                              <input type="hidden" name="intent" value="update-resource" />
+                                              <input type="hidden" name="resource_id" value={resource.id} />
+                                              <div className={styles.inlineRow}>
+                                                <label className={styles.field}>
+                                                  <span>Title</span>
+                                                  <input name="title" defaultValue={resource.title} className={styles.input} required />
+                                                </label>
+                                                <label className={styles.field}>
+                                                  <span>Category</span>
+                                                  <select name="category" defaultValue={resource.category} className={styles.input}>
+                                                    {RESOURCE_CATEGORIES.map((category) => (
+                                                      <option key={category} value={category}>
+                                                        {CATEGORY_LABELS[category]}
+                                                      </option>
+                                                    ))}
+                                                  </select>
+                                                </label>
+                                              </div>
+                                              <div className={styles.inlineRow}>
+                                                <label className={styles.field}>
+                                                  <span>Unit</span>
+                                                  <input name="unit_number" type="number" min={1} defaultValue={resource.unit_number ?? ""} className={styles.input} />
+                                                </label>
+                                                <label className={styles.field}>
+                                                  <span>Exam year</span>
+                                                  <input name="exam_year" type="number" min={2000} max={2100} defaultValue={resource.exam_year ?? ""} className={styles.input} />
+                                                </label>
+                                              </div>
+                                              <label className={styles.field}>
+                                                <span>Exam type</span>
+                                                <input name="exam_type" defaultValue={resource.exam_type ?? ""} className={styles.input} />
+                                              </label>
+                                              <label className={styles.field}>
+                                                <span>Description</span>
+                                                <textarea name="description" defaultValue={resource.description ?? ""} className={styles.input} />
+                                              </label>
+                                              <label className={styles.checkboxLabel}>
+                                                <input type="checkbox" name="is_premium" defaultChecked={resource.is_premium} /> Premium resource
+                                              </label>
+                                              <button type="submit" className={styles.primaryBtn} disabled={busy}>
+                                                <Save size={15} />
+                                                Save resource
+                                              </button>
+                                            </Form>
+
+                                            <div className={styles.fileTools}>
+                                              <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
+                                                <input type="hidden" name="intent" value="replace-resource-pdf" />
+                                                <input type="hidden" name="resource_id" value={resource.id} />
+                                                <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
+                                                <button type="submit" className={styles.secondaryBtn} disabled={busy}>
+                                                  Replace PDF
+                                                </button>
+                                              </Form>
+
+                                              <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
+                                                <input type="hidden" name="intent" value="append-resource-pdf" />
+                                                <input type="hidden" name="resource_id" value={resource.id} />
+                                                <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
+                                                <button type="submit" className={styles.secondaryBtn} disabled={busy}>
+                                                  Add pages
+                                                </button>
+                                              </Form>
+
+                                              <Form method="post">
+                                                <input type="hidden" name="intent" value="delete-resource" />
+                                                <input type="hidden" name="resource_id" value={resource.id} />
+                                                <button type="submit" className={styles.deleteBtn} disabled={busy}>
+                                                  <Trash2 size={15} />
+                                                  Delete
+                                                </button>
+                                              </Form>
+                                            </div>
+                                          </div>
+                                        </details>
+                                      ))
+                                    ) : (
+                                      <p className={styles.emptyInline}>No PDFs uploaded for this subject yet.</p>
+                                    )}
+                                  </div>
+                                </article>
+                              );
+                            })}
+                          </div>
+                        </section>
+                      ))}
+                    </details>
+                  ))}
+                </div>
+              </details>
+            ))}
+          </div>
+        </main>
+
+        <aside className={styles.sidePanel}>
+          <section className={styles.panel}>
+            <div className={styles.panelHeader}>
+              <Plus size={18} />
+              <h2 className={styles.panelTitle}>Add Subject</h2>
             </div>
-            <input name="icon" placeholder="Icon (optional)" className={styles.input} />
-            <button type="submit" className={styles.primaryBtn} disabled={busy}>
-              Add Subject
-            </button>
-          </Form>
-        </div>
-      </section>
-
-      <section className={styles.card}>
-        <h2>Manage Subjects</h2>
-        {!subjects.length ? <p className={styles.empty}>No subjects found yet.</p> : null}
-        <div className={styles.subjectList}>
-          {subjects.map((subject) => (
-            <Form method="post" className={styles.subjectItem} key={subject.id}>
-              <input type="hidden" name="intent" value="update-subject" />
-              <input type="hidden" name="subject_id" value={subject.id} />
+            <Form method="post" className={styles.form}>
+              <input type="hidden" name="intent" value="create-subject" />
+              <label className={styles.field}>
+                <span>Subject name</span>
+                <input name="subject_name" placeholder="Database Management System" required className={styles.input} />
+              </label>
+              <label className={styles.field}>
+                <span>Subject code</span>
+                <input name="subject_code" placeholder="BCS-501" required className={styles.input} />
+              </label>
+              <label className={styles.field}>
+                <span>Branch</span>
+                <input name="branch" placeholder="cse-ai" required className={styles.input} />
+              </label>
               <div className={styles.inlineRow}>
-                <input name="subject_name" defaultValue={subject.subject_name} className={styles.input} required />
-                <input name="subject_code" defaultValue={subject.subject_code} className={styles.input} required />
+                <label className={styles.field}>
+                  <span>Year</span>
+                  <input name="year" type="number" min={1} max={4} placeholder="3" required className={styles.input} />
+                </label>
+                <label className={styles.field}>
+                  <span>Semester</span>
+                  <input name="semester" type="number" min={1} max={8} placeholder="5" required className={styles.input} />
+                </label>
               </div>
-              <div className={styles.inlineRow}>
-                <input name="branch" defaultValue={subject.branch} className={styles.input} required />
-                <input name="icon" defaultValue={subject.icon ?? ""} placeholder="Icon (optional)" className={styles.input} />
-              </div>
-              <div className={styles.inlineRow}>
-                <input name="year" type="number" min={1} max={4} defaultValue={subject.year} required className={styles.input} />
-                <input
-                  name="semester"
-                  type="number"
-                  min={1}
-                  max={8}
-                  defaultValue={subject.semester}
-                  required
-                  className={styles.input}
-                />
-              </div>
-              <button type="submit" className={styles.secondaryBtn} disabled={busy}>
-                Save Subject
+              <label className={styles.field}>
+                <span>Icon</span>
+                <input name="icon" placeholder="Optional" className={styles.input} />
+              </label>
+              <button type="submit" className={styles.primaryBtn} disabled={busy}>
+                <Plus size={15} />
+                Add subject
               </button>
             </Form>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.card}>
-        <h2>Manage Resources</h2>
-        {!resources.length ? <p className={styles.empty}>No resources found yet.</p> : null}
-        <div className={styles.resourceList}>
-          {resources.map((resource) => (
-            <div key={resource.id} className={styles.resourceItem}>
-              <Form method="post" className={styles.form}>
-                <input type="hidden" name="intent" value="update-resource" />
-                <input type="hidden" name="resource_id" value={resource.id} />
-                <div className={styles.inlineRow}>
-                  <input name="title" defaultValue={resource.title} className={styles.input} required />
-                  <select name="category" defaultValue={resource.category} className={styles.input}>
-                    {RESOURCE_CATEGORIES.map((category) => (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className={styles.inlineRow}>
-                  <input name="unit_number" type="number" min={1} defaultValue={resource.unit_number ?? ""} className={styles.input} />
-                  <input name="exam_year" type="number" min={2000} max={2100} defaultValue={resource.exam_year ?? ""} className={styles.input} />
-                </div>
-                <input name="exam_type" defaultValue={resource.exam_type ?? ""} className={styles.input} />
-                <textarea name="description" defaultValue={resource.description ?? ""} className={styles.input} />
-                <label className={styles.checkboxLabel}>
-                  <input type="checkbox" name="is_premium" defaultChecked={resource.is_premium} /> Premium
-                </label>
-                <p className={styles.metaLine}>
-                  {(resource.subjects as { subject_name?: string } | null)?.subject_name ?? "Unknown Subject"} | {new Date(resource.created_at).toLocaleString()}
-                </p>
-                <div className={styles.inlineRow}>
-                  <button type="submit" className={styles.secondaryBtn} disabled={busy}>
-                    Save Metadata
-                  </button>
-                </div>
-              </Form>
-
-              <div className={styles.fileTools}>
-                <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
-                  <input type="hidden" name="intent" value="replace-resource-pdf" />
-                  <input type="hidden" name="resource_id" value={resource.id} />
-                  <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
-                  <button type="submit" className={styles.secondaryBtn} disabled={busy}>
-                    Replace PDF
-                  </button>
-                </Form>
-
-                <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
-                  <input type="hidden" name="intent" value="append-resource-pdf" />
-                  <input type="hidden" name="resource_id" value={resource.id} />
-                  <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
-                  <button type="submit" className={styles.secondaryBtn} disabled={busy}>
-                    Add Pages
-                  </button>
-                </Form>
-
-                <Form method="post">
-                  <input type="hidden" name="intent" value="delete-resource" />
-                  <input type="hidden" name="resource_id" value={resource.id} />
-                  <button type="submit" className={styles.deleteBtn} disabled={busy}>
-                    Delete
-                  </button>
-                </Form>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+          </section>
+        </aside>
+      </div>
     </div>
   );
 }

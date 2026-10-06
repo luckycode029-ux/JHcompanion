@@ -12,6 +12,7 @@ export default [
     route("subject/:subjectId", "routes/subject.tsx"),
   ]),
   route("admin/login", "routes/admin-login.tsx"),
-  route("admin", "routes/admin.tsx"),
+  route("admin/manage", "routes/admin.tsx"),
+  route("admin", "routes/admin-entry.tsx"),
   ...devRoutes,
 ] satisfies RouteConfig;

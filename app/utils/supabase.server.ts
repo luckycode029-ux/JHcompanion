@@ -1,4 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
+import { loadServerEnv } from "./env.server";
+
+loadServerEnv();
 
 function readEnv(...names: string[]): string {
   for (const name of names) {

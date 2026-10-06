@@ -25,9 +25,11 @@ export function SubjectCard({ subject, isBookmarked = false, onBookmark, showBra
         <div className={styles.iconWrap}>
           <BookOpen size={18} />
         </div>
-        <button className={styles.bookmarkBtn} onClick={handleBookmark} aria-label="Toggle bookmark">
-          {isBookmarked ? <BookmarkCheck size={18} className={styles.bookmarked} /> : <Bookmark size={18} />}
-        </button>
+        <div className={styles.cardActions}>
+          <button className={styles.bookmarkBtn} onClick={handleBookmark} aria-label="Toggle bookmark">
+            {isBookmarked ? <BookmarkCheck size={18} className={styles.bookmarked} /> : <Bookmark size={18} />}
+          </button>
+        </div>
       </div>
       <div className={styles.body}>
         <div className={styles.code}>{subject.code}</div>

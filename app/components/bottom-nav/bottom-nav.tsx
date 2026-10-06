@@ -1,19 +1,22 @@
 import { NavLink } from "react-router";
 import { Home, Search, Bookmark, Shield } from "lucide-react";
+import { useIsAdmin } from "~/utils/admin-context";
 import styles from "./bottom-nav.module.css";
 
 const NAV_ITEMS = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/search", icon: Search, label: "Search" },
   { to: "/bookmarks", icon: Bookmark, label: "Saved" },
-  { to: "/admin", icon: Shield, label: "Admin" },
 ];
 
 export function BottomNav() {
+  const isAdmin = useIsAdmin();
+  const navItems = isAdmin ? [...NAV_ITEMS, { to: "/admin/manage", icon: Shield, label: "Manage" }] : NAV_ITEMS;
+
   return (
     <nav className={styles.bottomNav}>
       <span className={styles.watermark}>made by Lucky</span>
-      {NAV_ITEMS.map(({ to, icon: Icon, label }) => (
+      {navItems.map(({ to, icon: Icon, label }) => (
         <NavLink
           key={to}
           to={to}
