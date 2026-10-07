@@ -432,6 +432,38 @@ export async function action({ request }: Route.ActionArgs) {
       const subjectId = String(formData.get("subject_id") ?? "");
       const title = String(formData.get("title") ?? "");
       const resourceUrl = String(formData.get("resource_url") ?? "").trim();
+      const { data: subjectById, error: subjectByIdError } = await supabase
+        .from("subjects")
+        .select("*")
+        .eq("id", subjectId)
+        .maybeSingle();
+
+      if (subjectByIdError) throw subjectByIdError;
+
+      let subject = subjectById;
+      if (!subject) {
+        const subjectBranch = String(formData.get("subject_branch") ?? "");
+        const subjectYear = Number(formData.get("subject_year") ?? 0);
+        const subjectSemester = Number(formData.get("subject_semester") ?? 0);
+        const subjectCode = String(formData.get("subject_code") ?? "");
+
+        if (subjectBranch && subjectYear && subjectSemester && subjectCode) {
+          const { data: subjectByKey, error: subjectByKeyError } = await supabase
+            .from("subjects")
+            .select("*")
+            .eq("branch", subjectBranch)
+            .eq("year", subjectYear)
+            .eq("semester", subjectSemester)
+            .eq("subject_code", subjectCode)
+            .maybeSingle();
+
+          if (subjectByKeyError) throw subjectByKeyError;
+          subject = subjectByKey;
+        }
+      }
+
+      if (!subject) throw new Error("Invalid subject selected.");
+      const resolvedSubjectId = subject.id;
 
       if (resourceUrl) {
         let parsedUrl: URL;
@@ -445,7 +477,7 @@ export async function action({ request }: Route.ActionArgs) {
         }
 
         const { error: insertError } = await supabase.from("resources").insert({
-          subject_id: subjectId,
+          subject_id: resolvedSubjectId,
           title,
           description: String(formData.get("description") ?? "") || null,
           category,
@@ -464,13 +496,6 @@ export async function action({ request }: Route.ActionArgs) {
 
       const { file, bytes } = await ensurePdf(formData.get("pdf") as File | null);
 
-      const { data: subject, error: subjectError } = await supabase
-        .from("subjects")
-        .select("*")
-        .eq("id", subjectId)
-        .single();
-      if (subjectError || !subject) throw new Error("Invalid subject selected.");
-
       const bucket = getBucketForCategory(category);
       const fileName = `${Date.now()}-${slugify(title)}.pdf`;
       const folderPath = `${slugify(subject.branch)}/${subject.year}/${subject.semester}/${slugify(subject.subject_name)}/${category}`;
@@ -485,7 +510,7 @@ export async function action({ request }: Route.ActionArgs) {
       const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(fullPath);
 
       const { error: insertError } = await supabase.from("resources").insert({
-        subject_id: subjectId,
+        subject_id: resolvedSubjectId,
         title,
         description: String(formData.get("description") ?? "") || null,
         category,

@@ -34,6 +34,10 @@ function findFallbackSubject(cmsSubject: CmsSubject) {
   );
 }
 
+function subjectKey(subject: Pick<Subject, "branch" | "year" | "semester" | "code">) {
+  return `${subject.branch}:${subject.year}:${subject.semester}:${subject.code}`;
+}
+
 function latest(resources: CmsResource[] | undefined, predicate: (resource: CmsResource) => boolean) {
   return (resources ?? []).find(predicate)?.resource_url ?? "";
 }
@@ -111,12 +115,8 @@ export async function getCmsSubjects(): Promise<Subject[]> {
     if (error || !data?.length) return fallback.subjects;
 
     const cmsSubjects = (data as CmsSubjectWithResources[]).map(mapCmsSubject);
-    const cmsKeys = new Set(
-      cmsSubjects.map((subject) => `${subject.branch}:${subject.year}:${subject.semester}:${subject.code}`)
-    );
-    const untouchedFallbackSubjects = fallback.subjects.filter(
-      (subject) => !cmsKeys.has(`${subject.branch}:${subject.year}:${subject.semester}:${subject.code}`)
-    );
+    const cmsKeys = new Set(cmsSubjects.map(subjectKey));
+    const untouchedFallbackSubjects = fallback.subjects.filter((subject) => !cmsKeys.has(subjectKey(subject)));
 
     return [...cmsSubjects, ...untouchedFallbackSubjects];
   } catch {
@@ -126,7 +126,13 @@ export async function getCmsSubjects(): Promise<Subject[]> {
 
 export async function getCmsSubject(id: string): Promise<Subject | undefined> {
   const subjects = await getCmsSubjects();
-  return subjects.find((subject) => subject.id === id) ?? fallback.subjects.find((subject) => subject.id === id);
+  const directMatch = subjects.find((subject) => subject.id === id);
+  if (directMatch) return directMatch;
+
+  const fallbackSubject = fallback.subjects.find((subject) => subject.id === id);
+  if (!fallbackSubject) return undefined;
+
+  return subjects.find((subject) => subjectKey(subject) === subjectKey(fallbackSubject)) ?? fallbackSubject;
 }
 
 export async function getCmsSubjectsByBranchAndYear(branch: string, year: number): Promise<Subject[]> {

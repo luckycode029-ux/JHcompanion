@@ -95,6 +95,10 @@ export function AdminResourceEditor({ subject, category, title, unitNumber, onCl
         <fetcher.Form method="post" action="/admin/manage" encType="multipart/form-data" className={styles.form} onSubmit={handleSubmit}>
           <input type="hidden" name="intent" value="upload-resource" />
           <input type="hidden" name="subject_id" value={subject.id} />
+          <input type="hidden" name="subject_branch" value={subject.branch} />
+          <input type="hidden" name="subject_year" value={subject.year} />
+          <input type="hidden" name="subject_semester" value={subject.semester} />
+          <input type="hidden" name="subject_code" value={subject.code} />
           <input type="hidden" name="category" value={category} />
           {unitNumber ? <input type="hidden" name="unit_number" value={unitNumber} /> : null}
 
