@@ -30,6 +30,21 @@ function parseStorageRef(publicUrl: string) {
   };
 }
 
+function isUuid(value: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) return error.message;
+  if (typeof error === "object" && error !== null) {
+    const { message, details } = error as Record<string, unknown>;
+    if (typeof message === "string" && message.trim()) {
+      return typeof details === "string" && details.trim() ? `${message}: ${details}` : message;
+    }
+  }
+  return "Action failed";
+}
+
 async function ensurePdf(file: File | null): Promise<{ file: File; bytes: ArrayBuffer }> {
   if (!file || file.size === 0) throw new Error("Please select a PDF file.");
   if (file.type && file.type !== "application/pdf") throw new Error("Only PDF files are allowed.");
@@ -432,15 +447,19 @@ export async function action({ request }: Route.ActionArgs) {
       const subjectId = String(formData.get("subject_id") ?? "");
       const title = String(formData.get("title") ?? "");
       const resourceUrl = String(formData.get("resource_url") ?? "").trim();
-      const { data: subjectById, error: subjectByIdError } = await supabase
-        .from("subjects")
-        .select("*")
-        .eq("id", subjectId)
-        .maybeSingle();
 
-      if (subjectByIdError) throw subjectByIdError;
+      let subject: CmsSubject | null = null;
+      if (isUuid(subjectId)) {
+        const { data: subjectById, error: subjectByIdError } = await supabase
+          .from("subjects")
+          .select("*")
+          .eq("id", subjectId)
+          .maybeSingle();
 
-      let subject = subjectById;
+        if (subjectByIdError) throw subjectByIdError;
+        subject = subjectById as CmsSubject | null;
+      }
+
       if (!subject) {
         const subjectBranch = String(formData.get("subject_branch") ?? "");
         const subjectYear = Number(formData.get("subject_year") ?? 0);
@@ -458,7 +477,7 @@ export async function action({ request }: Route.ActionArgs) {
             .maybeSingle();
 
           if (subjectByKeyError) throw subjectByKeyError;
-          subject = subjectByKey;
+          subject = subjectByKey as CmsSubject | null;
         }
       }
 
@@ -622,7 +641,7 @@ export async function action({ request }: Route.ActionArgs) {
   } catch (error) {
     return {
       ok: false,
-      message: error instanceof Error ? error.message : "Action failed",
+      message: getErrorMessage(error),
     };
   }
 }
