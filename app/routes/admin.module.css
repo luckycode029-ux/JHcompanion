@@ -227,6 +227,42 @@
 textarea.input { min-height: 76px; resize: vertical; }
 .inlineRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--border-soft, var(--color-border));
+  border-radius: 8px;
+  background: var(--surface-card, var(--color-surface-2));
+}
+
+.segmented button {
+  min-height: 36px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted, var(--color-text-muted));
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: inherit;
+  font-weight: 800;
+}
+
+.segmented button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.segmented .segmentActive {
+  background: var(--surface-elevated, var(--color-surface));
+  color: var(--accent-primary, var(--color-primary));
+  box-shadow: var(--shadow-sm);
+}
+
 .primaryBtn,
 .secondaryBtn,
 .logoutBtn,
@@ -271,16 +307,37 @@ textarea.input { min-height: 76px; resize: vertical; }
 .messageOk { background: color-mix(in srgb, var(--accent-success, #16a34a) 14%, transparent); border: 1px solid color-mix(in srgb, var(--accent-success, #16a34a) 35%, transparent); }
 .messageError { background: color-mix(in srgb, var(--accent-danger, #dc2626) 14%, transparent); border: 1px solid color-mix(in srgb, var(--accent-danger, #dc2626) 35%, transparent); }
 
+.formNote,
+.inlineError {
+  margin: 0;
+  border-radius: 8px;
+  padding: 9px 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.formNote {
+  color: var(--text-muted, var(--color-text-muted));
+  background: var(--surface-card, var(--color-surface-2));
+  border: 1px solid var(--border-soft, var(--color-border));
+}
+
+.inlineError {
+  color: var(--accent-danger, #dc2626);
+  background: color-mix(in srgb, var(--accent-danger, #dc2626) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-danger, #dc2626) 30%, transparent);
+}
+
 .fileTools {
   border-top: 1px solid var(--border-soft, var(--color-border));
   padding-top: 12px;
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
   gap: 10px;
   align-items: start;
 }
 
-.fileTool { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.fileTool { display: grid; gap: 8px; align-items: start; }
 .checkboxLabel { display: flex; align-items: center; gap: 8px; color: var(--text-muted, var(--color-text-muted)); font-size: 0.9rem; font-weight: 600; }
 
 .empty,

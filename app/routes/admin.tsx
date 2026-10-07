@@ -1,8 +1,11 @@
-import { Form, redirect, useActionData, useLoaderData, useNavigation } from "react-router";
-import { ExternalLink, FileText, Folder, Layers, LogOut, Pencil, Plus, Save, Trash2, Upload } from "lucide-react";
+import { type FormEvent, useState } from "react";
+import { Form, redirect, useActionData, useLoaderData, useNavigation, useSubmit } from "react-router";
+import { Camera, ExternalLink, FileText, Folder, Layers, LogOut, Pencil, Plus, Save, Trash2, Upload } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 import type { Route } from "./+types/admin";
 import styles from "./admin.module.css";
+import { ImageToPdfPicker } from "~/components/ImageToPdfPicker/ImageToPdfPicker";
+import { imagesToPdfFile, MAX_PDF_BYTES } from "~/lib/imagesToPdf";
 import { clearAdminCookie, isAdminAuthenticated } from "~/utils/admin-session.server";
 import { createSupabaseServiceClient } from "~/utils/supabase.server";
 import { getBranch } from "~/utils/data";
@@ -27,11 +30,28 @@ function parseStorageRef(publicUrl: string) {
   };
 }
 
-function ensurePdf(file: File | null): File {
+async function ensurePdf(file: File | null): Promise<{ file: File; bytes: ArrayBuffer }> {
   if (!file || file.size === 0) throw new Error("Please select a PDF file.");
-  if (file.type !== "application/pdf") throw new Error("Only PDF files are allowed.");
-  if (file.size > 25 * 1024 * 1024) throw new Error("File size must be 25MB or less.");
-  return file;
+  if (file.type && file.type !== "application/pdf") throw new Error("Only PDF files are allowed.");
+  if (file.size > MAX_PDF_BYTES) {
+    throw new Error("File size must be 25 MB or less. Try fewer photos or smaller photos.");
+  }
+
+  const bytes = await file.arrayBuffer();
+  const header = new TextDecoder().decode(new Uint8Array(bytes.slice(0, 5)));
+  if (header !== "%PDF-") throw new Error("The uploaded file is not a valid PDF.");
+
+  return { file, bytes };
+}
+
+function enforcePdfSize(byteLength: number) {
+  if (byteLength > MAX_PDF_BYTES) {
+    throw new Error("The saved PDF would be over 25 MB. Try fewer photos or smaller photos.");
+  }
+}
+
+function toArrayBuffer(bytes: Uint8Array) {
+  return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
 }
 
 function getBucketForCategory(category: ResourceCategory) {
@@ -107,6 +127,230 @@ function formatBytes(bytes: number | null) {
   if (!bytes) return "Size unknown";
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+type UploadMode = "pdf" | "photos";
+type ConversionState = { done: number; total: number; retrying: boolean };
+
+function UploadSourceSelector({
+  mode,
+  setMode,
+  disabled,
+}: {
+  mode: UploadMode;
+  setMode: (mode: UploadMode) => void;
+  disabled: boolean;
+}) {
+  return (
+    <div className={styles.segmented} role="radiogroup" aria-label="Upload source">
+      <button
+        type="button"
+        className={mode === "pdf" ? styles.segmentActive : ""}
+        onClick={() => setMode("pdf")}
+        disabled={disabled}
+        aria-pressed={mode === "pdf"}
+      >
+        <FileText size={15} />
+        PDF file
+      </button>
+      <button
+        type="button"
+        className={mode === "photos" ? styles.segmentActive : ""}
+        onClick={() => setMode("photos")}
+        disabled={disabled}
+        aria-pressed={mode === "photos"}
+      >
+        <Camera size={15} />
+        Photos
+      </button>
+    </div>
+  );
+}
+
+function usePhotoPdfSubmit() {
+  const submit = useSubmit();
+  const [mode, setMode] = useState<UploadMode>("pdf");
+  const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+  const [localError, setLocalError] = useState("");
+  const [conversion, setConversion] = useState<ConversionState | null>(null);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>, titleFallback: string) => {
+    if (mode === "pdf") return;
+
+    event.preventDefault();
+    setLocalError("");
+
+    if (!photoFiles.length) {
+      setLocalError("Choose at least one photo before uploading.");
+      return;
+    }
+
+    const formData = new FormData(event.currentTarget);
+    const title = String(formData.get("title") ?? titleFallback) || titleFallback;
+
+    try {
+      setConversion({ done: 0, total: photoFiles.length, retrying: false });
+      const { file } = await imagesToPdfFile(photoFiles, {
+        title,
+        retryOnOversize: true,
+        onProgress: (done, total) => setConversion((current) => ({ done, total, retrying: current?.retrying ?? false })),
+        onRetry: () => setConversion({ done: 0, total: photoFiles.length, retrying: true }),
+      });
+
+      formData.set("pdf", file);
+      submit(formData, { method: "post", encType: "multipart/form-data" });
+    } catch (error) {
+      setLocalError(error instanceof Error ? error.message : "Could not convert photos to PDF.");
+    } finally {
+      setConversion(null);
+    }
+  };
+
+  const progressText = conversion
+    ? `${conversion.retrying ? "Optimising smaller PDF" : "Converting photos"} (${conversion.done}/${conversion.total})`
+    : "";
+
+  return {
+    mode,
+    setMode,
+    setPhotoFiles,
+    localError,
+    conversion,
+    progressText,
+    handleSubmit,
+  };
+}
+
+function PdfSourceField({
+  mode,
+  setMode,
+  onPhotosChange,
+  disabled,
+  required,
+}: {
+  mode: UploadMode;
+  setMode: (mode: UploadMode) => void;
+  onPhotosChange: (files: File[]) => void;
+  disabled: boolean;
+  required: boolean;
+}) {
+  return (
+    <div className={styles.field}>
+      <span>Upload PDF</span>
+      <UploadSourceSelector mode={mode} setMode={setMode} disabled={disabled} />
+      {mode === "pdf" ? (
+        <input type="file" name="pdf" required={required} accept="application/pdf" className={styles.input} disabled={disabled} />
+      ) : (
+        <ImageToPdfPicker disabled={disabled} onChange={onPhotosChange} />
+      )}
+    </div>
+  );
+}
+
+function UploadResourceForm({ subject, busy }: { subject: CmsSubject; busy: boolean }) {
+  const photoSubmit = usePhotoPdfSubmit();
+  const formBusy = busy || photoSubmit.conversion !== null;
+
+  return (
+    <Form
+      method="post"
+      encType="multipart/form-data"
+      className={styles.form}
+      onSubmit={(event) => void photoSubmit.handleSubmit(event, "Resource PDF")}
+    >
+      <input type="hidden" name="intent" value="upload-resource" />
+      <input type="hidden" name="subject_id" value={subject.id} />
+      <label className={styles.field}>
+        <span>Title</span>
+        <input name="title" placeholder="Example: Unit 1 notes" required className={styles.input} disabled={formBusy} />
+      </label>
+      <div className={styles.inlineRow}>
+        <label className={styles.field}>
+          <span>Category</span>
+          <select name="category" required className={styles.input} disabled={formBusy}>
+            {RESOURCE_CATEGORIES.map((category) => (
+              <option key={category} value={category}>
+                {CATEGORY_LABELS[category]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className={styles.field}>
+          <span>Unit</span>
+          <input name="unit_number" type="number" min={1} placeholder="Optional" className={styles.input} disabled={formBusy} />
+        </label>
+      </div>
+      <div className={styles.inlineRow}>
+        <label className={styles.field}>
+          <span>Exam year</span>
+          <input name="exam_year" type="number" min={2000} max={2100} placeholder="Optional" className={styles.input} disabled={formBusy} />
+        </label>
+        <label className={styles.field}>
+          <span>Exam type</span>
+          <input name="exam_type" placeholder="Optional" className={styles.input} disabled={formBusy} />
+        </label>
+      </div>
+      <label className={styles.field}>
+        <span>Description</span>
+        <textarea name="description" placeholder="Optional" className={styles.input} disabled={formBusy} />
+      </label>
+      <label className={styles.checkboxLabel}>
+        <input type="checkbox" name="is_premium" disabled={formBusy} /> Premium resource
+      </label>
+      <PdfSourceField
+        mode={photoSubmit.mode}
+        setMode={photoSubmit.setMode}
+        onPhotosChange={photoSubmit.setPhotoFiles}
+        disabled={formBusy}
+        required
+      />
+      {photoSubmit.progressText ? <p className={styles.formNote}>{photoSubmit.progressText}</p> : null}
+      {photoSubmit.localError ? <p className={styles.inlineError}>{photoSubmit.localError}</p> : null}
+      <button type="submit" className={styles.primaryBtn} disabled={formBusy}>
+        <Upload size={15} />
+        {formBusy ? photoSubmit.progressText || "Uploading..." : "Upload PDF"}
+      </button>
+    </Form>
+  );
+}
+
+function PdfEditForm({
+  intent,
+  resource,
+  busy,
+  buttonLabel,
+}: {
+  intent: "replace-resource-pdf" | "append-resource-pdf";
+  resource: CmsResource;
+  busy: boolean;
+  buttonLabel: string;
+}) {
+  const photoSubmit = usePhotoPdfSubmit();
+  const formBusy = busy || photoSubmit.conversion !== null;
+
+  return (
+    <Form
+      method="post"
+      encType="multipart/form-data"
+      className={styles.fileTool}
+      onSubmit={(event) => void photoSubmit.handleSubmit(event, resource.title)}
+    >
+      <input type="hidden" name="intent" value={intent} />
+      <input type="hidden" name="resource_id" value={resource.id} />
+      <PdfSourceField
+        mode={photoSubmit.mode}
+        setMode={photoSubmit.setMode}
+        onPhotosChange={photoSubmit.setPhotoFiles}
+        disabled={formBusy}
+        required
+      />
+      {photoSubmit.progressText ? <p className={styles.formNote}>{photoSubmit.progressText}</p> : null}
+      {photoSubmit.localError ? <p className={styles.inlineError}>{photoSubmit.localError}</p> : null}
+      <button type="submit" className={styles.secondaryBtn} disabled={formBusy}>
+        {formBusy ? photoSubmit.progressText || "Saving..." : buttonLabel}
+      </button>
+    </Form>
+  );
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -218,7 +462,7 @@ export async function action({ request }: Route.ActionArgs) {
         return { ok: true, message: "Resource link saved." };
       }
 
-      const file = ensurePdf(formData.get("pdf") as File | null);
+      const { file, bytes } = await ensurePdf(formData.get("pdf") as File | null);
 
       const { data: subject, error: subjectError } = await supabase
         .from("subjects")
@@ -232,7 +476,6 @@ export async function action({ request }: Route.ActionArgs) {
       const folderPath = `${slugify(subject.branch)}/${subject.year}/${subject.semester}/${slugify(subject.subject_name)}/${category}`;
       const fullPath = `${folderPath}/${fileName}`;
 
-      const bytes = await file.arrayBuffer();
       const { error: uploadError } = await supabase.storage.from(bucket).upload(fullPath, bytes, {
         contentType: "application/pdf",
         upsert: false,
@@ -262,7 +505,7 @@ export async function action({ request }: Route.ActionArgs) {
 
     if (intent === "replace-resource-pdf" || intent === "append-resource-pdf") {
       const resourceId = String(formData.get("resource_id") ?? "");
-      const file = ensurePdf(formData.get("pdf") as File | null);
+      const { bytes: uploadedBytes } = await ensurePdf(formData.get("pdf") as File | null);
       const { data: resource, error } = await supabase
         .from("resources")
         .select("id,resource_url")
@@ -275,7 +518,7 @@ export async function action({ request }: Route.ActionArgs) {
         throw new Error("This PDF is not stored in Supabase storage, so it cannot be edited in-place.");
       }
 
-      let bytes = await file.arrayBuffer();
+      let bytes = uploadedBytes;
       if (intent === "append-resource-pdf") {
         const { data: existingBlob, error: downloadError } = await supabase.storage
           .from(storageRef.bucket)
@@ -289,11 +532,10 @@ export async function action({ request }: Route.ActionArgs) {
         const copiedPages = await existingPdf.copyPages(addedPdf, addedPdf.getPageIndices());
         copiedPages.forEach((page) => existingPdf.addPage(page));
         const mergedBytes = await existingPdf.save();
-        bytes = mergedBytes.buffer.slice(
-          mergedBytes.byteOffset,
-          mergedBytes.byteOffset + mergedBytes.byteLength
-        ) as ArrayBuffer;
+        bytes = toArrayBuffer(mergedBytes);
       }
+
+      enforcePdfSize(bytes.byteLength);
 
       const { error: uploadError } = await supabase.storage.from(storageRef.bucket).upload(storageRef.path, bytes, {
         contentType: "application/pdf",
@@ -489,52 +731,7 @@ export default function AdminRoute() {
                                       <Upload size={15} />
                                       Upload PDF to this subject
                                     </summary>
-                                    <Form method="post" encType="multipart/form-data" className={styles.form}>
-                                      <input type="hidden" name="intent" value="upload-resource" />
-                                      <input type="hidden" name="subject_id" value={subject.id} />
-                                      <label className={styles.field}>
-                                        <span>Title</span>
-                                        <input name="title" placeholder="Example: Unit 1 notes" required className={styles.input} />
-                                      </label>
-                                      <div className={styles.inlineRow}>
-                                        <label className={styles.field}>
-                                          <span>Category</span>
-                                          <select name="category" required className={styles.input}>
-                                            {RESOURCE_CATEGORIES.map((category) => (
-                                              <option key={category} value={category}>
-                                                {CATEGORY_LABELS[category]}
-                                              </option>
-                                            ))}
-                                          </select>
-                                        </label>
-                                        <label className={styles.field}>
-                                          <span>Unit</span>
-                                          <input name="unit_number" type="number" min={1} placeholder="Optional" className={styles.input} />
-                                        </label>
-                                      </div>
-                                      <div className={styles.inlineRow}>
-                                        <label className={styles.field}>
-                                          <span>Exam year</span>
-                                          <input name="exam_year" type="number" min={2000} max={2100} placeholder="Optional" className={styles.input} />
-                                        </label>
-                                        <label className={styles.field}>
-                                          <span>Exam type</span>
-                                          <input name="exam_type" placeholder="Optional" className={styles.input} />
-                                        </label>
-                                      </div>
-                                      <label className={styles.field}>
-                                        <span>Description</span>
-                                        <textarea name="description" placeholder="Optional" className={styles.input} />
-                                      </label>
-                                      <label className={styles.checkboxLabel}>
-                                        <input type="checkbox" name="is_premium" /> Premium resource
-                                      </label>
-                                      <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
-                                      <button type="submit" className={styles.primaryBtn} disabled={busy}>
-                                        <Upload size={15} />
-                                        {busy ? "Uploading..." : "Upload PDF"}
-                                      </button>
-                                    </Form>
+                                    <UploadResourceForm subject={subject} busy={busy} />
                                   </details>
 
                                   <div className={styles.resourceList}>
@@ -606,23 +803,9 @@ export default function AdminRoute() {
                                             </Form>
 
                                             <div className={styles.fileTools}>
-                                              <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
-                                                <input type="hidden" name="intent" value="replace-resource-pdf" />
-                                                <input type="hidden" name="resource_id" value={resource.id} />
-                                                <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
-                                                <button type="submit" className={styles.secondaryBtn} disabled={busy}>
-                                                  Replace PDF
-                                                </button>
-                                              </Form>
+                                              <PdfEditForm intent="replace-resource-pdf" resource={resource} busy={busy} buttonLabel="Replace PDF" />
 
-                                              <Form method="post" encType="multipart/form-data" className={styles.fileTool}>
-                                                <input type="hidden" name="intent" value="append-resource-pdf" />
-                                                <input type="hidden" name="resource_id" value={resource.id} />
-                                                <input type="file" name="pdf" required accept="application/pdf" className={styles.input} />
-                                                <button type="submit" className={styles.secondaryBtn} disabled={busy}>
-                                                  Add pages
-                                                </button>
-                                              </Form>
+                                              <PdfEditForm intent="append-resource-pdf" resource={resource} busy={busy} buttonLabel="Add pages" />
 
                                               <Form method="post">
                                                 <input type="hidden" name="intent" value="delete-resource" />
