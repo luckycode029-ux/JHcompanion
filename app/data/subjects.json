@@ -2107,7 +2107,7 @@
         }
       ],
       "pyqs": {
-        "oneshot" : "https://youtube.com/playlist?list=PLPz4HGmmJYQc&si=ltYng0zlEvsYMTP9"
+        "oneshot": "https://youtube.com/playlist?list=PLPz4HGmmJYQc&si=ltYng0zlEvsYMTP9",
         "sessional": "https://drive.google.com/file/d/1kH906oQ5fJ1yZHw6isdcY-F8xwNOpi17/view?usp=sharing",
         "semester": "https://drive.google.com/file/d/1vTTQHHOm0RYKj1LKhLzRdZa2RAd9hifx/view?usp=sharing"
       }
