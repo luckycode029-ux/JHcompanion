@@ -2065,48 +2065,49 @@
       "semester": 3,
       "syllabus": "https://drive.google.com/file/d/1rrPNhR5ZT7tfZD7ELupAJ1C9IklJvRrR/view?usp=sharing",
       "units": [
-        {
+               {
           "number": 1,
-          "title": "Unit 1",
+          "title": "Introduction to Object-Oriented Programming Concepts",
           "topics": [],
           "playlist": "",
-          "notes": "",
+          "notes": "https://drive.google.com/file/d/1myPc6CnCsrGGeqwG9MFRqqOOKwBWL_Qa/view?usp=drive_link",
           "pyqs": ""
         },
         {
           "number": 2,
-          "title": "Unit 2",
+          "title": "Classes, Objects and Constructors",
           "topics": [],
           "playlist": "",
-          "notes": "",
+          "notes": "https://drive.google.com/file/d/1XGq1ADoizSc1dM5Y4vzL2fLQmSoK3a7Q/view?usp=sharing",
           "pyqs": ""
         },
         {
           "number": 3,
-          "title": "Unit 3",
+          "title": "Inheritance, Interfaces, and Polymorphism",
           "topics": [],
-          "playlist": "",
+          "playlist": "https://drive.google.com/file/d/1-pwiN2oJGiwLcAtf1O0CVLEc-fGE4yxf/view?usp=drive_link",
           "notes": "",
           "pyqs": ""
         },
         {
           "number": 4,
-          "title": "Unit 4",
+          "title": "Exception Handling, Threads, and Advanced OOP",
           "topics": [],
-          "playlist": "",
+          "playlist": "https://drive.google.com/file/d/1siPIjyGUuVK7ugSJAFTWSWwBsxE7rZ65/view?usp=sharing",
           "notes": "",
           "pyqs": ""
         },
         {
           "number": 5,
-          "title": "Unit 5",
+          "title": "File Handling, GUI Programming, Collections and JUnit",
           "topics": [],
           "playlist": "",
-          "notes": "",
+          "notes": "https://drive.google.com/file/d/1eRPN7o1mOs5k0yuwqrubDlOqQ4SxhT9I/view?usp=sharing",
           "pyqs": ""
         }
       ],
       "pyqs": {
+        "oneshot" : "https://youtube.com/playlist?list=PLPz4HGmmJYQc&si=ltYng0zlEvsYMTP9"
         "sessional": "https://drive.google.com/file/d/1kH906oQ5fJ1yZHw6isdcY-F8xwNOpi17/view?usp=sharing",
         "semester": "https://drive.google.com/file/d/1vTTQHHOm0RYKj1LKhLzRdZa2RAd9hifx/view?usp=sharing"
       }
@@ -2160,6 +2161,7 @@
           "notes": "",
           "pyqs": ""
         }
+
       ],
       "pyqs": {
         "sessional": "",
